@@ -46,6 +46,11 @@ namespace Croom.Engine
             repository.Save(id, updatedReservation);
         }
 
+        public IEnumerable<KeyValuePair<Guid, Reservation>> GetAll()
+        {
+            return repository.FetchAll();
+        }
+
         private void CheckReservation(Reservation reservation)
         {
             if (IsOverlappingOthers(reservation))

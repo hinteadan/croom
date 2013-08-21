@@ -27,6 +27,7 @@ namespace Croom.Tester
 
             reservationEngine.ChangeReservation(reservationEngine.AddReservation(reservation), otherReservation);
 
+            var res = reservationEngine.GetAll();
 
 
             Console.WriteLine("Done @ {0}", DateTime.Now);

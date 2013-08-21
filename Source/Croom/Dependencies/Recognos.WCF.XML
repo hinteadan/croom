@@ -1,0 +1,233 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Recognos.WCF</name>
+    </assembly>
+    <members>
+        <member name="T:Recognos.WCF.IOCEndpointBehaviour">
+            <summary>
+            Container based endpoint behaviour. 
+            </summary>
+        </member>
+        <member name="M:Recognos.WCF.IOCEndpointBehaviour.AddBindingParameters(System.ServiceModel.Description.ServiceEndpoint,System.ServiceModel.Channels.BindingParameterCollection)">
+            <summary>
+            Implement to pass data at runtime to bindings to support custom behavior.
+            </summary>
+            <param name="endpoint">The endpoint to modify.</param>
+            <param name="bindingParameters">The objects that binding elements require to support the behavior.</param>
+        </member>
+        <member name="M:Recognos.WCF.IOCEndpointBehaviour.ApplyClientBehavior(System.ServiceModel.Description.ServiceEndpoint,System.ServiceModel.Dispatcher.ClientRuntime)">
+            <summary>
+            Implements a modification or extension of the client across an endpoint.
+            </summary>
+            <param name="endpoint">The endpoint that is to be customized.</param>
+            <param name="clientRuntime">The client runtime to be customized.</param>
+        </member>
+        <member name="M:Recognos.WCF.IOCEndpointBehaviour.ApplyDispatchBehavior(System.ServiceModel.Description.ServiceEndpoint,System.ServiceModel.Dispatcher.EndpointDispatcher)">
+            <summary>
+            Implements a modification or extension of the service across an endpoint.
+            </summary>
+            <param name="endpoint">The endpoint that exposes the contract.</param>
+            <param name="endpointDispatcher">The endpoint dispatcher to be modified or extended.</param>
+        </member>
+        <member name="M:Recognos.WCF.IOCEndpointBehaviour.Validate(System.ServiceModel.Description.ServiceEndpoint)">
+            <summary>
+            Implement to confirm that the endpoint meets some intended criteria.
+            </summary>
+            <param name="endpoint">The endpoint to validate.</param>
+        </member>
+        <member name="M:Recognos.WCF.IOCEndpointBehaviour.CreateBehavior">
+            <summary>
+            Creates a behavior extension based on the current configuration settings.
+            </summary>
+            <returns>The behavior extension.</returns>
+        </member>
+        <member name="P:Recognos.WCF.IOCEndpointBehaviour.BehaviorType">
+            <summary>
+            Gets the type of behavior.
+            </summary>
+            <value></value>
+            <returns>A <see cref="T:System.Type"/>.</returns>
+        </member>
+        <member name="T:Recognos.WCF.WCFObjectFactory">
+            <summary>
+            An object factory that is aware of wcf communication objects.
+            </summary>
+        </member>
+        <member name="F:Recognos.WCF.WCFObjectFactory.log">
+            <summary>
+            The logger.
+            </summary>
+        </member>
+        <member name="M:Recognos.WCF.WCFObjectFactory.ReleaseInstance(System.Object)">
+            <summary>
+            Releases the instance.
+            </summary>
+            <remarks>
+            If the instance implements <see cref="T:System.ServiceModel.ICommunicationObject"/> it will be properly closed or aborted.
+            </remarks>
+            <param name="instance">The instance.</param>
+        </member>
+        <member name="T:Recognos.WCF.WCFInstanceProvider">
+            <summary>
+            WCF instance provider that uses a DI container to create services.
+            </summary>
+        </member>
+        <member name="F:Recognos.WCF.WCFInstanceProvider.log">
+            <summary>
+            The logger.
+            </summary>
+        </member>
+        <member name="F:Recognos.WCF.WCFInstanceProvider.serviceType">
+            <summary>
+            Type of the service that this instance provider manages.
+            </summary>
+        </member>
+        <member name="F:Recognos.WCF.WCFInstanceProvider.factory">
+            <summary>
+            The factory used to create and release objects.
+            </summary>
+        </member>
+        <member name="M:Recognos.WCF.WCFInstanceProvider.#ctor(System.Type)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Recognos.WCF.WCFInstanceProvider"/> class.
+            </summary>
+            <param name="serviceType">Type of the service.</param>
+        </member>
+        <member name="M:Recognos.WCF.WCFInstanceProvider.GetInstance(System.ServiceModel.InstanceContext,System.ServiceModel.Channels.Message)">
+            <summary>
+            Returns a service object given the specified <see cref="T:System.ServiceModel.InstanceContext"/> object.
+            </summary>
+            <param name="instanceContext">The current <see cref="T:System.ServiceModel.InstanceContext"/> object.</param>
+            <param name="message">The message that triggered the creation of a service object.</param>
+            <returns>The service object.</returns>
+        </member>
+        <member name="M:Recognos.WCF.WCFInstanceProvider.GetInstance(System.ServiceModel.InstanceContext)">
+            <summary>
+            Returns a service object given the specified <see cref="T:System.ServiceModel.InstanceContext"/> object.
+            </summary>
+            <param name="instanceContext">The current <see cref="T:System.ServiceModel.InstanceContext"/> object.</param>
+            <returns>A user-defined service object.</returns>
+        </member>
+        <member name="M:Recognos.WCF.WCFInstanceProvider.ReleaseInstance(System.ServiceModel.InstanceContext,System.Object)">
+            <summary>
+            Called when an <see cref="T:System.ServiceModel.InstanceContext"/> object recycles a service object.
+            </summary>
+            <param name="instanceContext">The service's instance context.</param>
+            <param name="instance">The service object to be recycled.</param>
+        </member>
+        <member name="T:Recognos.WCF.IOCServiceBehaviour">
+            <summary>
+            Service behavior that provides Dependency injection to WCF services.
+            </summary>
+            <remarks>
+            If possible use autofac WCF support instead of Recognos.WCF.
+            </remarks>
+        </member>
+        <member name="F:Recognos.WCF.IOCServiceBehaviour.log">
+            <summary>
+            The logger.
+            </summary>
+        </member>
+        <member name="M:Recognos.WCF.IOCServiceBehaviour.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Recognos.WCF.IOCServiceBehaviour"/> class.
+            </summary>
+        </member>
+        <member name="M:Recognos.WCF.IOCServiceBehaviour.AddBindingParameters(System.ServiceModel.Description.ServiceDescription,System.ServiceModel.ServiceHostBase,System.Collections.ObjectModel.Collection{System.ServiceModel.Description.ServiceEndpoint},System.ServiceModel.Channels.BindingParameterCollection)">
+            <summary>
+            Provides the ability to pass custom data to binding elements to support the contract implementation.
+            </summary>
+            <param name="serviceDescription">The service description of the service.</param>
+            <param name="serviceHostBase">The host of the service.</param>
+            <param name="endpoints">The service endpoints.</param>
+            <param name="bindingParameters">Custom objects to which binding elements have access.</param>
+        </member>
+        <member name="M:Recognos.WCF.IOCServiceBehaviour.ApplyDispatchBehavior(System.ServiceModel.Description.ServiceDescription,System.ServiceModel.ServiceHostBase)">
+            <summary>
+            Provides the ability to change run-time property values or insert custom extension objects such as error handlers, message or parameter interceptors, security extensions, and other custom extension objects.
+            </summary>
+            <param name="serviceDescription">The service description.</param>
+            <param name="serviceHostBase">The host that is currently being built.</param>
+        </member>
+        <member name="M:Recognos.WCF.IOCServiceBehaviour.Validate(System.ServiceModel.Description.ServiceDescription,System.ServiceModel.ServiceHostBase)">
+            <summary>
+            Provides the ability to inspect the service host and the service description to confirm that the service can run successfully.
+            </summary>
+            <param name="serviceDescription">The service description.</param>
+            <param name="serviceHostBase">The service host that is currently being constructed.</param>
+        </member>
+        <member name="M:Recognos.WCF.IOCServiceBehaviour.CreateBehavior">
+            <summary>
+            Creates a behavior extension based on the current configuration settings.
+            </summary>
+            <returns>The behavior extension.</returns>
+        </member>
+        <member name="P:Recognos.WCF.IOCServiceBehaviour.BehaviorType">
+            <summary>
+            Gets the type of behavior.
+            </summary>
+            <value></value>
+            <returns>A <see cref="T:System.Type"/>.</returns>
+        </member>
+        <member name="T:Recognos.WCF.WCFCallContext`1">
+            <summary>
+            A per wcf call contextrual storage
+            </summary>
+            <typeparam name="T">Type to store in the contextual storage.</typeparam>
+        </member>
+        <member name="F:Recognos.WCF.WCFCallContext`1.log">
+            <summary>
+            the log4net logger
+            </summary>
+        </member>
+        <member name="M:Recognos.WCF.WCFCallContext`1.#ctor(System.Func{`0})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Recognos.WCF.WCFCallContext`1"/> class.
+            </summary>
+            <param name="instanceCreator">The instance creator.</param>
+        </member>
+        <member name="M:Recognos.WCF.WCFCallContext`1.GetInstance(System.String)">
+            <summary>
+            Gets the instance.
+            </summary>
+            <param name="key">The key of the type.</param>
+            <returns>The instance.</returns>
+        </member>
+        <member name="M:Recognos.WCF.WCFCallContext`1.SetInstance(System.String,`0)">
+            <summary>
+            Sets the instance.
+            </summary>
+            <param name="key">The key of the type.</param>
+            <param name="data">The instance.</param>
+        </member>
+        <member name="T:Recognos.WCF.WCFCallContext`1.ContextStateExtension">
+            <summary>
+            Operation context extension to store state
+            </summary>
+        </member>
+        <member name="M:Recognos.WCF.WCFCallContext`1.ContextStateExtension.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Recognos.WCF.WCFCallContext`1.ContextStateExtension"/> class.
+            </summary>
+        </member>
+        <member name="M:Recognos.WCF.WCFCallContext`1.ContextStateExtension.Attach(System.ServiceModel.OperationContext)">
+            <summary>
+            Enables an extension object to find out when it has been aggregated. Called when the extension is added to the <see cref="P:System.ServiceModel.IExtensibleObject`1.Extensions"/> property.
+            </summary>
+            <param name="owner">The extensible object that aggregates this extension.</param>
+        </member>
+        <member name="M:Recognos.WCF.WCFCallContext`1.ContextStateExtension.Detach(System.ServiceModel.OperationContext)">
+            <summary>
+            Enables an object to find out when it is no longer aggregated. Called when an extension is removed from the <see cref="P:System.ServiceModel.IExtensibleObject`1.Extensions"/> property.
+            </summary>
+            <param name="owner">The extensible object that aggregates this extension.</param>
+        </member>
+        <member name="P:Recognos.WCF.WCFCallContext`1.ContextStateExtension.State">
+            <summary>
+            Gets or sets the state.
+            </summary>
+            <value>The state.</value>
+        </member>
+    </members>
+</doc>

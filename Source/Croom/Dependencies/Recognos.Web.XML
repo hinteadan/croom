@@ -1,0 +1,346 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Recognos.Web</name>
+    </assembly>
+    <members>
+        <member name="T:Recognos.Web.Caching.AspCache">
+            <summary>
+            Implementation of a cache based on ASP.NET Cache 
+            <remarks>This class is and needs to remain Thread Safe</remarks>
+            </summary>
+        </member>
+        <member name="T:Recognos.Web.Caching.IWebCache">
+            <summary>
+            Cache system for web applications
+            </summary>
+        </member>
+        <member name="M:Recognos.Web.Caching.IWebCache.RequestCache``1(System.Int32,System.Func{``0})">
+            <summary>
+            Cache an object per request by type and id
+            </summary>
+            <typeparam name="T">Type of object to cache</typeparam>
+            <param name="id">Id of the requested object</param>
+            <param name="getter">Function that returns the object</param>
+            <returns>The instance of the requested object</returns>
+        </member>
+        <member name="M:Recognos.Web.Caching.IWebCache.RequestCache``1(System.String,System.Func{``0})">
+            <summary>
+            Cache an object per request by a string key
+            </summary>
+            <typeparam name="T">Type of object to cache</typeparam>
+            <param name="key">Key to used</param>
+            <param name="getter">Function that returns the object</param>
+            <returns>The instance of the requested object</returns>
+        </member>
+        <member name="M:Recognos.Web.Caching.IWebCache.SessionCache``1(System.Int32,System.Func{``0})">
+            <summary>
+            Cache an object per Http Session by type and id
+            </summary>
+            <typeparam name="T">Type of object to cache</typeparam>
+            <param name="id">Id of the requested object</param>
+            <param name="getter">Function that returns the object</param>
+            <returns>The instance of the requested object</returns>
+        </member>
+        <member name="M:Recognos.Web.Caching.IWebCache.SessionCache``1(System.String,System.Func{``0})">
+            <summary>
+            Cache an object per Http Session by a string key
+            </summary>
+            <typeparam name="T">Type of object to cache</typeparam>
+            <param name="key">Key to used</param>
+            <param name="getter">Function that returns the object</param>
+            <returns>The instance of the requested object</returns>
+        </member>
+        <member name="F:Recognos.Web.Caching.AspCache.dependencyEnabled">
+            <summary>
+            Flag signaling is dependencies are enabled
+            </summary>
+        </member>
+        <member name="F:Recognos.Web.Caching.AspCache.locker">
+            <summary>
+            Helper object to lock on
+            </summary>
+        </member>
+        <member name="F:Recognos.Web.Caching.AspCache.cache">
+            <summary>
+            The asp.net cache object 
+            </summary>
+        </member>
+        <member name="M:Recognos.Web.Caching.AspCache.#ctor">
+            <summary>
+            Initializes a new instance of the AspCache class.
+            </summary>
+        </member>
+        <member name="M:Recognos.Web.Caching.AspCache.#ctor(System.Web.Caching.Cache)">
+            <summary>
+            Initializes a new instance of the AspCache class.
+            </summary>
+            <param name="aspCache">The ASP.NET Cache instance to wrap</param>
+        </member>
+        <member name="M:Recognos.Web.Caching.AspCache.StartDependencyWatcher(System.String)">
+            <summary>
+            Start the SQL dependency engine on the specified sql server 
+            </summary>
+            <param name="connectionString">Connection String for the sql server</param>
+        </member>
+        <member name="M:Recognos.Web.Caching.AspCache.StopDependencyWatcher(System.String)">
+            <summary>
+            Stop the SQL dependency engine on the specified sql server 
+            </summary>
+            <param name="connectionString">Connection String for the sql server</param>
+        </member>
+        <member name="M:Recognos.Web.Caching.AspCache.Cached``1(System.String,System.Func{``0},Recognos.Core.Caching.IExpirationPolicyProvider)">
+            <summary>
+            Returns an item from the cache. If the item is not found in cache the 
+            <paramref name="getter"/> is called to retrivie the objects, witch is added 
+            to the cache and returned
+            </summary>
+            <typeparam name="T">Type of the object</typeparam>
+            <param name="key">Key for the object</param>
+            <param name="getter">Fuction to retrive the object if not founc in cache</param>
+            <param name="policyProvider">Provider for expiration policy</param>
+            <returns>The requested object</returns>
+        </member>
+        <member name="M:Recognos.Web.Caching.AspCache.Cached``1(System.String,System.Func{``0},Recognos.Core.Caching.CachePriority)">
+            <summary>
+            Returns an item from the cache. If the item is not found in cache the 
+            <paramref name="getter"/> is called to retrivie the objects, witch is added 
+            to the cache and returned
+            </summary>
+            <typeparam name="T">Type of the object</typeparam>
+            <param name="key">Key for the object</param>
+            <param name="getter">Fuction to retrive the object if not founc in cache</param>
+            <param name="priority">Priority of the cached item</param>
+            <returns>The requested object</returns>
+        </member>
+        <member name="M:Recognos.Web.Caching.AspCache.Cached``1(System.String,System.Func{``0},System.TimeSpan)">
+            <summary>
+            Returns an item from the cache. If the item is not found in cache the 
+            <paramref name="getter"/> is called to retrivie the objects, witch is added 
+            to the cache and returned
+            </summary>
+            <typeparam name="T">Type of the object</typeparam>
+            <param name="key">Key for the object</param>
+            <param name="getter">Fuction to retrive the object if not founc in cache</param>
+            <param name="slidingExpiration">Time to keep the object inactive in cache</param>
+            <returns>The requested object</returns>
+        </member>
+        <member name="M:Recognos.Web.Caching.AspCache.Cached``1(System.String,System.Func{``0})">
+            <summary>
+            Returns an item from the cache. If the item is not found in cache the 
+            <paramref name="getter"/> is called to retrivie the objects, witch is added 
+            to the cache and returned
+            </summary>
+            <typeparam name="T">Type of the object</typeparam>
+            <param name="key">Key for the object</param>
+            <param name="getter">Fuction to retrive the object if not founc in cache</param>
+            <returns>The requested object</returns>
+        </member>
+        <member name="M:Recognos.Web.Caching.AspCache.Contains(System.String)">
+            <summary>
+            Verify if an item is cached. 
+            </summary>
+            <remarks>The item might be removed from cache immediatly after this method returns true</remarks>
+            <param name="key">Key for the item</param>
+            <returns>True if the item is cached, false otherwise</returns>
+        </member>
+        <member name="M:Recognos.Web.Caching.AspCache.RequestCache``1(System.Int32,System.Func{``0})">
+            <summary>
+            Cache an object per request by type and id
+            </summary>
+            <typeparam name="T">Type of object to cache</typeparam>
+            <param name="id">Id of the requested object</param>
+            <param name="getter">Function that returns the object</param>
+            <returns>The instance of the requested object</returns>
+        </member>
+        <member name="M:Recognos.Web.Caching.AspCache.RequestCache``1(System.String,System.Func{``0})">
+            <summary>
+            Cache an object per request by a string key
+            </summary>
+            <typeparam name="T">Type of object to cache</typeparam>
+            <param name="key">Key to used</param>
+            <param name="getter">Function that returns the object</param>
+            <returns>The instance of the requested object</returns>
+        </member>
+        <member name="M:Recognos.Web.Caching.AspCache.SessionCache``1(System.Int32,System.Func{``0})">
+            <summary>
+            Cache an object per Http Session by type and id
+            </summary>
+            <typeparam name="T">Type of object to cache</typeparam>
+            <param name="id">Id of the requested object</param>
+            <param name="getter">Function that returns the object</param>
+            <returns>The instance of the requested object</returns>
+        </member>
+        <member name="M:Recognos.Web.Caching.AspCache.SessionCache``1(System.String,System.Func{``0})">
+            <summary>
+            Cache an object per Http Session by a string key
+            </summary>
+            <typeparam name="T">Type of object to cache</typeparam>
+            <param name="key">Key to used</param>
+            <param name="getter">Function that returns the object</param>
+            <returns>The instance of the requested object</returns>
+        </member>
+        <member name="M:Recognos.Web.Caching.AspCache.BuildDependency``1(``0,Recognos.Core.Caching.ICommandProvider)">
+            <summary>
+            Create a <see cref="T:System.Web.Caching.CacheDependency"/> for an object.
+            </summary>
+            <typeparam name="T">Type of the object</typeparam>
+            <param name="obj">Instance of the object</param>
+            <param name="provider">DB command provider</param>
+            <returns>The cache dependency or null if unable to get dependency</returns>
+        </member>
+        <member name="M:Recognos.Web.Caching.AspCache.MakeCacheItemPriority(Recognos.Core.Caching.CachePriority)">
+            <summary>
+            Convert <see cref="T:Recognos.Core.Caching.CachePriority"/> to 
+            <see cref="T:System.Web.Caching.CacheItemPriority"/>
+            </summary>
+            <param name="priority">Priority to convert</param>
+            <returns>The converted priority</returns>
+        </member>
+        <member name="M:Recognos.Web.Caching.AspCache.MakeKey``1(System.Int32)">
+            <summary>
+            Compose a key from type and id
+            </summary>
+            <typeparam name="T">Type of the object</typeparam>
+            <param name="id">Numeric identifier of the object</param>
+            <returns>The key for the type and id</returns>
+        </member>
+        <member name="M:Recognos.Web.Caching.AspCache.TryGetFromCache``1(System.String,``0@)">
+            <summary>
+            Try to get an object from the cache
+            </summary>
+            <typeparam name="T">Type of object</typeparam>
+            <param name="key">Key of the object</param>
+            <param name="obj">Instance of the object will be placed here</param>
+            <returns>True is the object is found in cache</returns>
+        </member>
+        <member name="M:Recognos.Web.Caching.AspCache.StoreInCache``1(System.String,``0,Recognos.Core.Caching.ExpirationPolicy)">
+            <summary>
+            Store an object in the cache
+            </summary>
+            <typeparam name="T">Type of the object</typeparam>
+            <param name="key">Key of the object</param>
+            <param name="obj">Instance of the object</param>
+            <param name="policy">Cache policy</param>
+        </member>
+        <member name="M:Recognos.Web.Caching.AspCache.SafeFromCache``1(System.String,System.Func{``0},System.Func{``0,Recognos.Core.Caching.ExpirationPolicy})">
+            <summary>
+            Try to get an object from the cache.
+            </summary>
+            <typeparam name="T">Type of the object</typeparam>
+            <param name="key">Instance of the object</param>
+            <param name="getter">Object Getter</param>
+            <param name="policyGetter">Cache policy getter</param>
+            <returns>The instance of the object</returns>
+        </member>
+        <member name="P:Recognos.Web.Caching.AspCache.SupportsCacheDependency">
+            <summary>
+            Gets a value indicating whether the instance supports cache dependencies. Returns true
+            </summary>
+        </member>
+        <member name="P:Recognos.Web.Caching.AspCache.RequestItems">
+            <summary>
+            Gets the items stored in the current request
+            </summary>
+        </member>
+        <member name="P:Recognos.Web.Caching.AspCache.Session">
+            <summary>
+            Gets the items stored in the current session
+            </summary>
+        </member>
+        <member name="T:Recognos.Web.Caching.FakeWebCache">
+            <summary>
+            A cache implementation that does not cache elements
+            <remarks>Use for testing purposes</remarks>
+            </summary>
+        </member>
+        <member name="M:Recognos.Web.Caching.FakeWebCache.RequestCache``1(System.Int32,System.Func{``0})">
+            <summary>
+            Execute the getter and return the result
+            </summary>
+            <typeparam name="T">Type of the object</typeparam>
+            <param name="id">key for the object (UNUSED)</param>
+            <param name="getter">Geter to invoke</param>
+            <returns>The getter invocation result</returns>
+        </member>
+        <member name="M:Recognos.Web.Caching.FakeWebCache.RequestCache``1(System.String,System.Func{``0})">
+            <summary>
+            Execute the getter and return the result
+            </summary>
+            <typeparam name="T">Type of the object</typeparam>
+            <param name="key">key for the object (UNUSED)</param>
+            <param name="getter">Geter to invoke</param>
+            <returns>The getter invocation result</returns>
+        </member>
+        <member name="M:Recognos.Web.Caching.FakeWebCache.SessionCache``1(System.Int32,System.Func{``0})">
+            <summary>
+            Execute the getter and return the result
+            </summary>
+            <typeparam name="T">Type of the object</typeparam>
+            <param name="id">key for the object (UNUSED)</param>
+            <param name="getter">Geter to invoke</param>
+            <returns>The getter invocation result</returns>
+        </member>
+        <member name="M:Recognos.Web.Caching.FakeWebCache.SessionCache``1(System.String,System.Func{``0})">
+            <summary>
+            Execute the getter and return the result
+            </summary>
+            <typeparam name="T">Type of the object</typeparam>
+            <param name="key">key for the object (UNUSED)</param>
+            <param name="getter">Geter to invoke</param>
+            <returns>The getter invocation result</returns>
+        </member>
+        <member name="T:Recognos.Web.Context.SessionContext`1">
+            <summary>
+            Implementation of a request context storage.
+            </summary>
+            <typeparam name="T">Type of the element in the storage.</typeparam>
+        </member>
+        <member name="M:Recognos.Web.Context.SessionContext`1.#ctor(System.Func{`0})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Recognos.Web.Context.SessionContext`1"/> class.
+            </summary>
+            <param name="instanceCreator">The instance creator.</param>
+        </member>
+        <member name="M:Recognos.Web.Context.SessionContext`1.GetInstance(System.String)">
+            <summary>
+            Gets the instance.
+            </summary>
+            <param name="key">The key of the type.</param>
+            <returns>The instance.</returns>
+        </member>
+        <member name="M:Recognos.Web.Context.SessionContext`1.SetInstance(System.String,`0)">
+            <summary>
+            Sets the instance.
+            </summary>
+            <param name="key">The key of the type.</param>
+            <param name="data">The instance.</param>
+        </member>
+        <member name="T:Recognos.Web.Context.RequestContext`1">
+            <summary>
+            Implementation of a request context storage.
+            </summary>
+            <typeparam name="T">Type of the element in the storage.</typeparam>
+        </member>
+        <member name="M:Recognos.Web.Context.RequestContext`1.#ctor(System.Func{`0})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Recognos.Web.Context.RequestContext`1"/> class.
+            </summary>
+            <param name="instanceCreator">The instance creator.</param>
+        </member>
+        <member name="M:Recognos.Web.Context.RequestContext`1.GetInstance(System.String)">
+            <summary>
+            Gets the instance.
+            </summary>
+            <param name="key">The key of the type.</param>
+            <returns>The instance.</returns>
+        </member>
+        <member name="M:Recognos.Web.Context.RequestContext`1.SetInstance(System.String,`0)">
+            <summary>
+            Sets the instance.
+            </summary>
+            <param name="key">The key of the type.</param>
+            <param name="data">The instance.</param>
+        </member>
+    </members>
+</doc>

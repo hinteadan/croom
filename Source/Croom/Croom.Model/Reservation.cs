@@ -12,7 +12,7 @@ namespace Croom.Model
     {
         private readonly Dictionary<string, string> details = new Dictionary<string,string>();
         private readonly List<Comment> comments = new List<Comment>();
-        private readonly HashSet<User> particiapnts = new HashSet<User>();
+        private readonly HashSet<User> participants = new HashSet<User>();
 
 
         public User RequestedBy { get; private set; }
@@ -38,7 +38,7 @@ namespace Croom.Model
         {
             get
             {
-                return particiapnts.ToArray();
+                return participants.ToArray();
             }
         }
         public IEnumerable<Comment> Comments
@@ -82,7 +82,7 @@ namespace Croom.Model
         public void AddParticipant(User participant)
         {
             Check.NotNull(participant, "participant");
-            particiapnts.Add(participant);
+            participants.Add(participant);
         }
 
         public void SetPriority(ReservationPriority priority)

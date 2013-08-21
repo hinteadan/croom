@@ -12,12 +12,15 @@ namespace Croom.Engine
     public class ReservationEngine
     {
         private readonly ReservationProvider repository;
+        private readonly User currentUser;
 
-        public ReservationEngine(ReservationProvider reservationProvider)
+        public ReservationEngine(User currentUser, ReservationProvider reservationProvider)
         {
             Check.NotNull(reservationProvider, "reservationProvider");
+            Check.NotNull(currentUser, "currentUser");
 
             this.repository = reservationProvider;
+            this.currentUser = currentUser;
         }
 
         public Guid AddReservation(Reservation newReservation)
@@ -28,6 +31,16 @@ namespace Croom.Engine
             }
 
             return repository.Save(newReservation);
+        }
+
+        public void CancelReservation(Guid id)
+        {
+            Check.NotEmpty(id, "id");
+            var reservation = repository.Load(id);
+            Check.Condition(reservation != null , "Cannot find a reservation with given id, {0}", id);
+            Check.Condition(IsCurrentUserReservationOwner(reservation), "This reservation was requested by another user");
+
+            repository.Remove(id);
         }
 
         private bool IsOverlappingOthers(Reservation newReservation)
@@ -41,6 +54,11 @@ namespace Croom.Engine
         private bool IsBetweenInclusive(DateTime dateToCheck, DateTime min, DateTime max)
         {
             return dateToCheck >= min && dateToCheck <= max;
+        }
+
+        private bool IsCurrentUserReservationOwner(Reservation reservation)
+        {
+            return reservation.RequestedBy.Username == currentUser.Username;
         }
     }
 }

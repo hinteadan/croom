@@ -16,13 +16,16 @@ namespace Croom.Tester
         static void Main(string[] args)
         {
             User me = new User("hintee", "Hintea Dan", "dan.hintea@recognos.ro");
-            ReservationEngine reservationEngine = new ReservationEngine(new ReservationProvider(new InMemoryStore()));
+
+            ReservationEngine reservationEngine = new ReservationEngine(
+                me,
+                new ReservationProvider(new InMemoryStore())
+                );
 
             var reservation = new Reservation(me, "Test Reservation", DateTime.Now, DateTime.Now.AddHours(1));
             var otherReservation = new Reservation(me, "Test Reservation", DateTime.Now.AddHours(2), DateTime.Now.AddHours(3));
 
-            reservationEngine.AddReservation(reservation);
-            reservationEngine.AddReservation(otherReservation);
+            reservationEngine.CancelReservation(reservationEngine.AddReservation(reservation));
 
             Console.WriteLine("Done @ {0}", DateTime.Now);
             Console.ReadKey();

@@ -25,9 +25,19 @@ namespace Croom.Data.Providers
                 ).ToArray();
         }
 
+        public Reservation Load(Guid id)
+        {
+            return dataStore.Load(id) as Reservation;
+        }
+
         public Guid Save(Reservation newReservation)
         {
             return dataStore.Save(newReservation);
+        }
+
+        public void Remove(Guid id)
+        {
+            dataStore.Remove(id);
         }
     }
 }

@@ -10,6 +10,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{BD74B5
 		.nuget\NuGet.targets = .nuget\NuGet.targets
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Croom.Backend", "Croom.Backend\Croom.Backend.csproj", "{5BDCBA3F-C096-4A06-976E-B0C8CEAC2477}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -20,6 +22,10 @@ Global
 		{649D251A-7296-4AAC-BB31-B82DA1050A8F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{649D251A-7296-4AAC-BB31-B82DA1050A8F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{649D251A-7296-4AAC-BB31-B82DA1050A8F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5BDCBA3F-C096-4A06-976E-B0C8CEAC2477}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5BDCBA3F-C096-4A06-976E-B0C8CEAC2477}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5BDCBA3F-C096-4A06-976E-B0C8CEAC2477}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5BDCBA3F-C096-4A06-976E-B0C8CEAC2477}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

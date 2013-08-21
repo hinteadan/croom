@@ -35,6 +35,11 @@ namespace Croom.Data.Providers
             return dataStore.Save(newReservation);
         }
 
+        public void Save(Guid id, Reservation updatedReservation)
+        {
+            dataStore.SaveOrUpdate(new KeyValuePair<Guid, object>(id, updatedReservation));
+        }
+
         public void Remove(Guid id)
         {
             dataStore.Remove(id);

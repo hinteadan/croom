@@ -25,22 +25,40 @@ namespace Croom.Engine
 
         public Guid AddReservation(Reservation newReservation)
         {
-            if (IsOverlappingOthers(newReservation))
-            {
-                throw new InvalidOperationException("The reservation is overlapping some existing reservations");
-            }
+            CheckReservation(newReservation);
 
             return repository.Save(newReservation);
         }
 
         public void CancelReservation(Guid id)
         {
-            Check.NotEmpty(id, "id");
-            var reservation = repository.Load(id);
-            Check.Condition(reservation != null , "Cannot find a reservation with given id, {0}", id);
-            Check.Condition(IsCurrentUserReservationOwner(reservation), "This reservation was requested by another user");
+            Check.NotEmpty(id, "reservationId");
+            CheckOwnership(id);
 
             repository.Remove(id);
+        }
+
+        public void ChangeReservation(Guid id, Reservation updatedReservation)
+        {
+            CheckOwnership(id);
+            CheckReservation(updatedReservation);
+
+            repository.Save(id, updatedReservation);
+        }
+
+        private void CheckReservation(Reservation reservation)
+        {
+            if (IsOverlappingOthers(reservation))
+            {
+                throw new InvalidOperationException("The reservation is overlapping some existing reservations");
+            }
+        }
+
+        private void CheckOwnership(Guid reservationId)
+        {
+            var reservation = repository.Load(reservationId);
+            Check.Condition(reservation != null, "Cannot find a reservation with given reservationId, {0}", reservationId);
+            Check.Condition(IsCurrentUserReservationOwner(reservation), "This reservation was requested by another user");
         }
 
         private bool IsOverlappingOthers(Reservation newReservation)

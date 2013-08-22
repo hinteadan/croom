@@ -1,5 +1,6 @@
 ﻿.screensaver-active{
     background:url("http://dl.dropbox.com/u/40036711/Images/BeerSpill.jpg") fixed no-repeat center center transparent;
+    background-size: 100%;
     width:100%;
     height:100%;
     position:fixed;

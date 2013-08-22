@@ -3,35 +3,51 @@
 <head>
     <title>Hintee's SandBox for testing</title>
     
+    <script src="Scripts/Lib/jquery-1.9.1.js"></script>
     <script src="Scripts/Lib/angular.js"></script>
     <script src="Scripts/Lib/angular-resource.js"></script>
     <script src="Scripts/app.js"></script>
+    <script src="Scripts/Lib/screensaver.js"></script>
     <script type="text/javascript">
         var app = angular.module('Croom');
         app.controller('H', ['$scope', 'ReservationService', 'UserService', function ($scope, reservationApi, userApi) {
 
-                var reservation = {
+            var reservation = {
                     RequestedBy: userApi.Current(),
                     Title: "",
                     StartsAt: "00:00:00",
                     EndsAt: "01:00:00"
                 };
 
-                $scope.Reservations = reservationApi.All();
-                $scope.AddReservation = function () {
-                    var id = reservationApi.Add(reservation);
+            $scope.idToEdit = null;
+            $scope.Reservations = reservationApi.All();
+            $scope.AddReservation = function () {
+                var id = reservationApi.Add(null, reservation, function () {
                     $scope.Reservations = reservationApi.All();
-                }
-                $scope.Reservation = reservation;
+                });
+            }
+            $scope.EditReservation = function (id) {
+                $scope.idToEdit = id;
+                $scope.Reservation = reservation = reservationApi.Single({ id: id });
+            };
+            $scope.SaveReservation = function () {
+                reservationApi.Change({ id: $scope.idToEdit }, reservation, function () {
+                    $scope.Reservations = reservationApi.All();
+                });
+                $scope.idToEdit = null;
+            };
+            $scope.Reservation = reservation;
 
             }])
             .service('ReservationService', ['$resource', function ($resource) {
                 var baseUrl = '/Croom.Backend/Reservation/:id',
-                    api = $resource(baseUrl, { id: '' });
+                    api = $resource(baseUrl, { id: '' }, { change: { method: 'PUT' } });
 
                 return {
                     Add: api.save,
-                    All: api.query
+                    All: api.query,
+                    Single: api.get,
+                    Change: api.change
                 };
             }])
             .service('UserService', ['$resource', function ($resource) {
@@ -48,14 +64,25 @@
 
     <div ng-controller="H">
         
-        <input placeholder="Title" ng-model="Reservation.Title" />
-        <input placeholder="Starts at" ng-model="Reservation.StartsAt" />
-        <input placeholder="Ends at" ng-model="Reservation.EndsAt" />
+        <div ng-hide="idToEdit">
+            <input placeholder="Title" ng-model="Reservation.Title" />
+            <input placeholder="Starts at" ng-model="Reservation.StartsAt" />
+            <input placeholder="Ends at" ng-model="Reservation.EndsAt" />
+            <button ng-click="AddReservation()">Add Reservation</button>
+        </div>
 
-        <button ng-click="AddReservation()">Add Reservation</button>
+        <div ng-show="idToEdit">
+            <input placeholder="Title" ng-model="Reservation.Title" />
+            <input placeholder="Starts at" ng-model="Reservation.StartsAt" />
+            <input placeholder="Ends at" ng-model="Reservation.EndsAt" />
+            <button ng-click="SaveReservation()">Save</button>
+        </div>
 
         <ul>
-            <li ng-repeat="r in Reservations">{{r.Key}}, {{r.Value.Title}}, {{r.Value.LastsFor}}</li>
+            <li ng-repeat="r in Reservations">
+                {{r.Key}}, {{r.Value.Title}}, {{r.Value.LastsFor}}
+                <button ng-click="$parent.EditReservation(r.Key)">Edit</button>
+            </li>
         </ul>
 
     </div>

@@ -33,5 +33,15 @@ namespace Croom.Backend.Controllers
         {
             return reservationEngine.GetAll();
         }
+
+        public Reservation Get(Guid id)
+        {
+            return reservationEngine.Get(id);
+        }
+
+        public void Put(Guid id, Reservation reservation)
+        {
+            reservationEngine.ChangeReservation(id, reservation);
+        }
     }
 }

@@ -41,7 +41,7 @@ namespace Croom.Engine
         public void ChangeReservation(Guid id, Reservation updatedReservation)
         {
             CheckOwnership(id);
-            CheckReservation(updatedReservation);
+            CheckReservation(updatedReservation, id);
 
             repository.Save(id, updatedReservation);
         }
@@ -51,9 +51,14 @@ namespace Croom.Engine
             return repository.FetchAll();
         }
 
-        private void CheckReservation(Reservation reservation)
+        public Reservation Get(Guid id)
         {
-            if (IsOverlappingOthers(reservation))
+            return repository.Load(id);
+        }
+
+        private void CheckReservation(Reservation reservation, params Guid[] ignore)
+        {
+            if (IsOverlappingOthers(reservation, ignore))
             {
                 throw new InvalidOperationException("The reservation is overlapping some existing reservations");
             }
@@ -66,9 +71,11 @@ namespace Croom.Engine
             Check.Condition(IsCurrentUserReservationOwner(reservation), "This reservation was requested by another user");
         }
 
-        private bool IsOverlappingOthers(Reservation newReservation)
+        private bool IsOverlappingOthers(Reservation newReservation, params Guid[] ignore)
         {
-            return repository.FetchAll().Any(r =>
+            return repository.FetchAll()
+                .Where(r => !ignore.Contains(r.Key))
+                .Any(r =>
                 IsBetweenInclusive(newReservation.StartsAt, r.Value.StartsAt, r.Value.EndsAt)
                 || IsBetweenInclusive(newReservation.EndsAt, r.Value.StartsAt, r.Value.EndsAt)
                 );

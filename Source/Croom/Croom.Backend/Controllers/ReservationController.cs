@@ -43,5 +43,10 @@ namespace Croom.Backend.Controllers
         {
             reservationEngine.ChangeReservation(id, reservation);
         }
+
+        public void Delete(Guid id)
+        {
+            reservationEngine.CancelReservation(id);
+        }
     }
 }

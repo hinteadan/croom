@@ -36,6 +36,11 @@
                 });
                 $scope.idToEdit = null;
             };
+            $scope.CancelReservation = function (id) {
+                reservationApi.Cancel({ id: id }, function () {
+                    $scope.Reservations = reservationApi.All();
+                });
+            }
             $scope.Reservation = reservation;
 
             }])
@@ -47,7 +52,8 @@
                     Add: api.save,
                     All: api.query,
                     Single: api.get,
-                    Change: api.change
+                    Change: api.change,
+                    Cancel: api.delete
                 };
             }])
             .service('UserService', ['$resource', function ($resource) {
@@ -81,7 +87,8 @@
         <ul>
             <li ng-repeat="r in Reservations">
                 {{r.Key}}, {{r.Value.Title}}, {{r.Value.LastsFor}}
-                <button ng-click="$parent.EditReservation(r.Key)">Edit</button>
+                <button ng-click="$parent.EditReservation(r.Key)">Modify</button>
+                <button ng-click="$parent.CancelReservation(r.Key)">Cancel</button>
             </li>
         </ul>
 

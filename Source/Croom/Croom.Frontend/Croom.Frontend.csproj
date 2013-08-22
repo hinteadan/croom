@@ -365,6 +365,7 @@
     <Content Include="Scripts\Lib\i18n\angular-locale_zh.js" />
     <Content Include="Scripts\Lib\i18n\angular-locale_zu-za.js" />
     <Content Include="Scripts\Lib\i18n\angular-locale_zu.js" />
+    <Content Include="Scripts\Lib\screensaver.js" />
     <Content Include="Views\home.html" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">

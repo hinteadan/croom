@@ -1,7 +1,7 @@
 ﻿(function () {
     "use strict";
 
-    angular.module('Croom', ['ngResource'])
+    var app = angular.module('Croom', ['ngResource'])
         .config(function ($routeProvider) {
           $routeProvider
             .when('/', {
@@ -12,5 +12,10 @@
                 redirectTo: '/'
             });
         });
+
+    app.run(function(){
+        var screensaver = new window.screensaver();
+        screensaver.run();
+    });
 
 }).call(this);

@@ -17,8 +17,10 @@
                     EndsAt: "01:00:00"
                 };
 
+                $scope.Reservations = reservationApi.All();
                 $scope.AddReservation = function () {
                     var id = reservationApi.Add(reservation);
+                    $scope.Reservations = reservationApi.All();
                 }
                 $scope.Reservation = reservation;
 
@@ -28,7 +30,8 @@
                     api = $resource(baseUrl, { id: '' });
 
                 return {
-                    Add: api.save
+                    Add: api.save,
+                    All: api.query
                 };
             }])
             .service('UserService', ['$resource', function ($resource) {
@@ -50,6 +53,11 @@
         <input placeholder="Ends at" ng-model="Reservation.EndsAt" />
 
         <button ng-click="AddReservation()">Add Reservation</button>
+
+        <ul>
+            <li ng-repeat="r in Reservations">{{r.Key}}, {{r.Value.Title}}, {{r.Value.LastsFor}}</li>
+        </ul>
+
     </div>
     
     

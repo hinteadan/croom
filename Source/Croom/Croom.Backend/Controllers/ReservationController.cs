@@ -28,5 +28,10 @@ namespace Croom.Backend.Controllers
         {
             return new { Id = reservationEngine.AddReservation(reservation) };
         }
+
+        public IEnumerable<KeyValuePair<Guid, Reservation>> Get()
+        {
+            return reservationEngine.GetAll();
+        }
     }
 }

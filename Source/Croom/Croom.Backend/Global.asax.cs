@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Http;
 using System.Web.Routing;
+using Croom.Backend.Infrastructure;
 
 namespace Croom.Backend
 {
@@ -14,6 +15,8 @@ namespace Croom.Backend
     {
         protected void Application_Start()
         {
+            Dependencies.Init();
+
             WebApiConfig.Register(GlobalConfiguration.Configuration);
         }
     }

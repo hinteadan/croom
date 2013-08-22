@@ -1,18 +1,36 @@
 ﻿<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html ng-app="Croom" xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <title>Hintee's SandBox for testing</title>
     
     <script src="Scripts/Lib/angular.js"></script>
     <script src="Scripts/Lib/angular-resource.js"></script>
     <script src="Scripts/app.js"></script>
+    <script type="text/javascript">
+        var app = angular.module('Croom');
+        app.controller('H', ['$scope', 'ReservationService', function ($scope, api) {
+
+            $scope.AddReservation = function () {
+                api.Add({});
+            }
+
+        }])
+            .service('ReservationService', ['$resource', function ($resource) {
+                var baseUrl = '/Croom.Backend/Reservation/:id',
+                    api = $resource(baseUrl, { id: '' });
+
+                return {
+                    Add: api.save
+                };
+            }]);
+    </script>
 </head>
 <body>
 
-
+    <div ng-controller="H">
+        <button ng-click="AddReservation()">Add Reservation</button>
+    </div>
     
-    <script type="text/javascript">
-        var appModule = angular.module('Croom');
-    </script>
+    
 </body>
 </html>

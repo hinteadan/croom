@@ -24,9 +24,9 @@ namespace Croom.Backend.Controllers
             Check.InjectedMembers(this);
         }
 
-        public void Post(Reservation reservation)
+        public object Post(Reservation reservation)
         {
-            reservationEngine.AddReservation(reservation);
+            return new { Id = reservationEngine.AddReservation(reservation) };
         }
     }
 }

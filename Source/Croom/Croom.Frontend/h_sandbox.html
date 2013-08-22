@@ -8,13 +8,21 @@
     <script src="Scripts/app.js"></script>
     <script type="text/javascript">
         var app = angular.module('Croom');
-        app.controller('H', ['$scope', 'ReservationService', function ($scope, api) {
+        app.controller('H', ['$scope', 'ReservationService', 'UserService', function ($scope, reservationApi, userApi) {
 
-            $scope.AddReservation = function () {
-                api.Add({});
-            }
+                var reservation = {
+                    RequestedBy: userApi.Current(),
+                    Title: "",
+                    StartsAt: "00:00:00",
+                    EndsAt: "01:00:00"
+                };
 
-        }])
+                $scope.AddReservation = function () {
+                    var id = reservationApi.Add(reservation);
+                }
+                $scope.Reservation = reservation;
+
+            }])
             .service('ReservationService', ['$resource', function ($resource) {
                 var baseUrl = '/Croom.Backend/Reservation/:id',
                     api = $resource(baseUrl, { id: '' });
@@ -22,12 +30,25 @@
                 return {
                     Add: api.save
                 };
+            }])
+            .service('UserService', ['$resource', function ($resource) {
+                var baseUrl = '/Croom.Backend/User/:id',
+                    api = $resource(baseUrl, { id: '' });
+
+                return {
+                    Current: api.get
+                };
             }]);
     </script>
 </head>
 <body>
 
     <div ng-controller="H">
+        
+        <input placeholder="Title" ng-model="Reservation.Title" />
+        <input placeholder="Starts at" ng-model="Reservation.StartsAt" />
+        <input placeholder="Ends at" ng-model="Reservation.EndsAt" />
+
         <button ng-click="AddReservation()">Add Reservation</button>
     </div>
     

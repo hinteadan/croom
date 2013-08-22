@@ -1,7 +1,7 @@
 ﻿(function () {
     "use strict";
 
-    window.screensaver = function() {
+    var screensaver = function (element) {
 
         var timeout;
 
@@ -16,14 +16,22 @@
         }
 
         function displayScreensaver() {
-            $("#screensaver").addClass('screensaver-active');
+            element.addClass('screensaver-active');
         }
         function hideScreensaver() {
-            $("#screensaver").removeClass('screensaver-active');
+            element.removeClass('screensaver-active');
         }
 
         return {
             run: run
         };
     }
+
+    var app = angular.module('Croom');
+    app.directive('screensaver', function () {
+        return function (scope, element) {
+            new screensaver(element).run();
+        }
+    })
+
 }).call(this);

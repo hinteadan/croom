@@ -13,9 +13,4 @@
             });
         });
 
-    app.run(function(){
-        var screensaver = new window.screensaver();
-        screensaver.run();
-    });
-
 }).call(this);

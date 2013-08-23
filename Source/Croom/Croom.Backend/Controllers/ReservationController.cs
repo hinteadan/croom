@@ -6,9 +6,11 @@ using Croom.Model;
 using Recognos.Core;
 using System;
 using System.Collections.Generic;
+using Autofac.Integration.WebApi;
 
 namespace Croom.Backend.Controllers
 {
+    [AutofacControllerConfiguration]
     public class ReservationController : BaseController
     {
         private readonly ReservationEngine reservationEngine;
@@ -16,10 +18,11 @@ namespace Croom.Backend.Controllers
         public ReservationController(IStoreDataAsKeyValue store)
         {
             Check.NotNull(store, "store");
-            reservationEngine = new ReservationEngine(CurrentUser, new ReservationProvider(store));
+            this.reservationEngine = new ReservationEngine(CurrentUser, new ReservationProvider(store));
             Check.InjectedMembers(this);
         }
 
+        
         public object Post(Reservation reservation)
         {
             Check.NotNull(reservation, "reservation");

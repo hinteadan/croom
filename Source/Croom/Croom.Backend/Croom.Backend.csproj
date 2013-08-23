@@ -109,6 +109,7 @@
     </Compile>
     <Compile Include="Infrastructure\BaseController.cs" />
     <Compile Include="Infrastructure\Dependencies.cs" />
+    <Compile Include="Infrastructure\Filters\AuthorizationFilter.cs" />
     <Compile Include="Infrastructure\Filters\ExceptionFilter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

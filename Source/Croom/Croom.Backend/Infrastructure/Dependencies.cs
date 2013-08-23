@@ -8,6 +8,8 @@ using Autofac;
 using Autofac.Integration.WebApi;
 using Croom.Authentication;
 using Croom.Authentication.Authenticators;
+using Croom.Backend.Controllers;
+using Croom.Backend.Infrastructure.Filters;
 using Croom.Data.Stores;
 
 namespace Croom.Backend.Infrastructure
@@ -18,9 +20,14 @@ namespace Croom.Backend.Infrastructure
         {
             var builder = new ContainerBuilder();
             builder.RegisterApiControllers(Assembly.GetExecutingAssembly());
+            builder.RegisterWebApiFilterProvider(GlobalConfiguration.Configuration);
 
             builder.RegisterInstance<InMemoryStore>(new InMemoryStore()).AsImplementedInterfaces();
             builder.RegisterType<DummyAuthenticator>().AsImplementedInterfaces();
+
+            builder.RegisterType<AuthorizationFilter>()
+                .AsWebApiAuthorizationFilterFor<ReservationController>()
+                .InstancePerApiRequest();
 
             GlobalConfiguration.Configuration.DependencyResolver =
                 new AutofacWebApiDependencyResolver(builder.Build());

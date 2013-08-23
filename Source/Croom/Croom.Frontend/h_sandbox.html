@@ -19,19 +19,25 @@
                     var baseUrl = '/Croom.Backend/Auth',
                         api = $resource(baseUrl);
 
-                    function login(username, password) {
+                    function login(username, password, onSuccess) {
                         var result = api.save(null, { username: username, password: password }, function () {
                             if (result.IsSuccessful) {
                                 authToken = result.AuthToken;
                             }
                             configureHeaders();
+                            if (onSuccess) {
+                                onSuccess.call(null);
+                            }
                         });
                     }
 
-                    function logout() {
+                    function logout(onSuccess) {
                         api.delete(null, null, function () {
                             authToken = null;
                             configureHeaders();
+                            if (onSuccess) {
+                                onSuccess.call(null);
+                            }
                         });
                     }
 
@@ -87,10 +93,14 @@
             $scope.Username = '';
             $scope.Password = '';
             $scope.Login = function () {
-                auth.Login($scope.Username, $scope.Password);
+                auth.Login($scope.Username, $scope.Password, function () {
+                    reservation.RequestedBy = userApi.Current();
+                });
             }
             $scope.Logout = function () {
-                auth.Logout();
+                auth.Logout(function () {
+                    reservation.RequestedBy = userApi.Current();
+                });
             }
 
             }])

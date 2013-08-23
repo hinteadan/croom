@@ -28,8 +28,7 @@
 
         function displayScreensaver() {
             element.addClass('screensaver-active');
-            var backgroundImageUrl = "url(" + self.image.url + ")";
-            backgroundImageUrl = backgroundImageUrl.replace("PhotoShare", "s0/PhotoShare");
+            var backgroundImageUrl = "url(" + self.image.src + ")";
             element[0].style.background = backgroundImageUrl;
             resetTimeout(5000);
             fetchRandomImage();
@@ -50,7 +49,8 @@
                     images.push(element["media$group"]["media$content"][0]);
                 });
                 var random = Math.floor(Math.random() * data.feed.entry.length);
-                self.image = images[random];
+                self.image = new Image();
+                self.image.src=images[random].url;
             });
         }
 

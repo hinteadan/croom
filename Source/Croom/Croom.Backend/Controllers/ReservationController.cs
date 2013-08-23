@@ -6,19 +6,19 @@ using Croom.Model;
 using Recognos.Core;
 using System;
 using System.Collections.Generic;
-using Autofac.Integration.WebApi;
 
 namespace Croom.Backend.Controllers
 {
-    [AutofacControllerConfiguration]
     public class ReservationController : BaseController
     {
         private readonly ReservationEngine reservationEngine;
 
         public ReservationController(IStoreDataAsKeyValue store)
+            : base(store)
         {
             Check.NotNull(store, "store");
-            this.reservationEngine = new ReservationEngine(CurrentUser, new ReservationProvider(store));
+            this.reservationEngine = 
+                new ReservationEngine(() => CurrentUser, new ReservationProvider(store));
             Check.InjectedMembers(this);
         }
 

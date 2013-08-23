@@ -36,26 +36,29 @@ namespace Croom.Authentication.Authenticators
             }
 
             token = Guid.NewGuid();
-            store.SaveOrUpdate(new KeyValuePair<Guid, object>(token.Value, username));
+            store.SaveOrUpdate(new KeyValuePair<Guid, object>(
+                token.Value, 
+                new User(username, username, "hintea_dan@yahoo.co.uk"))
+                );
             return true;
         }
 
         public bool Authenticate(Guid token, out User authenticatedUser)
         {
-            authenticatedUser = null;
-            string username = store.Load(token) as string;
-            if (username == null)
-            {
-                return false;
-            }
-            authenticatedUser = new User(username, username, "hintea_dan@yahoo.co.uk");
-            return true;
+            authenticatedUser = store.Load(token) as User;
+            return authenticatedUser != null;
         }
 
         public bool Authenticate(Guid token)
         {
             User user;
             return this.Authenticate(token, out user);
+        }
+
+
+        public void Invalidate(Guid token)
+        {
+            store.Remove(token);
         }
     }
 }

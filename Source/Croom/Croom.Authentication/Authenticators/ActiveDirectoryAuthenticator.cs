@@ -40,7 +40,12 @@ namespace Croom.Authentication.Authenticators
                 if (isValid)
                 {
                     token = Guid.NewGuid();
-                    store.SaveOrUpdate(new KeyValuePair<Guid, object>(token.Value, username));
+                    using (var directory = new DirectorySearcher(domainConnectionString))
+                    {
+                        directory.Filter = string.Format("(sAMAccountName={0})", username);
+                        DirectoryEntry entry = directory.FindOne().GetDirectoryEntry();
+                        store.SaveOrUpdate(new KeyValuePair<Guid, object>(token.Value, entry.ToUser()));
+                    }
                 }
                 return isValid;
             }
@@ -48,27 +53,20 @@ namespace Croom.Authentication.Authenticators
 
         public bool Authenticate(Guid token, out User authenticatedUser)
         {
-            authenticatedUser = null;
-            string username = store.Load(token) as string;
-            if (username == null)
-            {
-                return false;
-            }
-
-            using (var directory = new DirectorySearcher(domainConnectionString))
-            {
-                directory.Filter = string.Format("(sAMAccountName={0})", username);
-                DirectoryEntry entry = directory.FindOne().GetDirectoryEntry();
-                authenticatedUser = entry.ToUser();
-            }
-
-            return true;
+            authenticatedUser = store.Load(token) as User;
+            return authenticatedUser != null;
         }
 
         public bool Authenticate(Guid token)
         {
             User user;
             return this.Authenticate(token, out user);
+        }
+
+
+        public void Invalidate(Guid token)
+        {
+            store.Remove(token);
         }
     }
 }

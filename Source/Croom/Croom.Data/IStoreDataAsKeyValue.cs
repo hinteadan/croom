@@ -14,4 +14,6 @@ namespace Croom.Data
         IEnumerable<KeyValuePair<Guid, object>> Load();
         void Remove(Guid id);
     }
+
+    public interface IStoreDataAsKeyValueLikeNothing : IStoreDataAsKeyValue { }
 }

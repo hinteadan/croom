@@ -64,5 +64,11 @@ namespace Croom.Authentication.Authenticators
 
             return true;
         }
+
+        public bool Authenticate(Guid token)
+        {
+            User user;
+            return this.Authenticate(token, out user);
+        }
     }
 }

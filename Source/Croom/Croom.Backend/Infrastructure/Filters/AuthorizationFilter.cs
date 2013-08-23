@@ -44,7 +44,7 @@ namespace Croom.Backend.Infrastructure.Filters
                 return false;
             }
 
-            return true;
+            return authenticator.Authenticate(token);
         }
     }
 }

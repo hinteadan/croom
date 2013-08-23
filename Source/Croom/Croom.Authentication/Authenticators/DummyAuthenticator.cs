@@ -51,5 +51,11 @@ namespace Croom.Authentication.Authenticators
             authenticatedUser = new User(username, username, "hintea_dan@yahoo.co.uk");
             return true;
         }
+
+        public bool Authenticate(Guid token)
+        {
+            User user;
+            return this.Authenticate(token, out user);
+        }
     }
 }

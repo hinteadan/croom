@@ -7,10 +7,30 @@
     <script src="Scripts/Lib/angular.js"></script>
     <script src="Scripts/Lib/angular-resource.js"></script>
     <script src="Scripts/app.js"></script>
-    <script src="Scripts/Lib/screensaver.js"></script>
+    <script src="Scripts/Directives/screensaver.js"></script>
     <script type="text/javascript">
         var app = angular.module('Croom');
-        app.controller('H', ['$scope', 'ReservationService', 'UserService', function ($scope, reservationApi, userApi) {
+        app
+            .provider('AuthService', ['$httpProvider', function ($httpProvider) {
+
+                var authToken = 'SomeToken';
+
+                function AuthService($resource) {
+
+                }
+
+                function configureHeaders() {
+                    $httpProvider.defaults.headers.common['X-Croom-AuthToken'] = authToken;
+                }
+
+                this.ConfigureHeaders = configureHeaders;
+
+                this.$get = ['$resource', AuthService];
+            }])
+            .config(['AuthServiceProvider', function (authProvider) {
+                authProvider.ConfigureHeaders();
+            }])
+            .controller('H', ['$scope', 'ReservationService', 'UserService', function ($scope, reservationApi, userApi) {
 
             var reservation = {
                     RequestedBy: userApi.Current(),
@@ -44,7 +64,7 @@
             $scope.Reservation = reservation;
 
             }])
-            .service('ReservationService', ['$resource', function ($resource) {
+            .factory('ReservationService', ['$resource', function ($resource) {
                 var baseUrl = '/Croom.Backend/Reservation/:id',
                     api = $resource(baseUrl, { id: '' }, { change: { method: 'PUT' } });
 
@@ -56,7 +76,7 @@
                     Cancel: api.delete
                 };
             }])
-            .service('UserService', ['$resource', function ($resource) {
+            .factory('UserService', ['$resource', function ($resource) {
                 var baseUrl = '/Croom.Backend/User/:id',
                     api = $resource(baseUrl, { id: '' });
 

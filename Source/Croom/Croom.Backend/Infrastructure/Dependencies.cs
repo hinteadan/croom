@@ -11,6 +11,7 @@ using Croom.Authentication.Authenticators;
 using Croom.Backend.Controllers;
 using Croom.Backend.Infrastructure.Filters;
 using Croom.Data.Stores;
+using Croom.Model;
 
 namespace Croom.Backend.Infrastructure
 {
@@ -26,7 +27,13 @@ namespace Croom.Backend.Infrastructure
             builder.RegisterType<DummyAuthenticator>().AsImplementedInterfaces();
 
             builder.RegisterType<AuthorizationFilter>()
-                .AsWebApiAuthorizationFilterFor<ReservationController>()
+                .AsWebApiAuthorizationFilterFor<ReservationController>(c => c.Post(default(Reservation)))
+                .InstancePerApiRequest();
+            builder.RegisterType<AuthorizationFilter>()
+                .AsWebApiAuthorizationFilterFor<ReservationController>(c => c.Put(default(Guid), default(Reservation)))
+                .InstancePerApiRequest();
+            builder.RegisterType<AuthorizationFilter>()
+                .AsWebApiAuthorizationFilterFor<ReservationController>(c => c.Delete(default(Guid)))
                 .InstancePerApiRequest();
 
             GlobalConfiguration.Configuration.DependencyResolver =

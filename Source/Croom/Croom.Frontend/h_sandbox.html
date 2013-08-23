@@ -16,7 +16,29 @@
                 var authToken = 'SomeToken';
 
                 function AuthService($resource) {
+                    var baseUrl = '/Croom.Backend/Auth',
+                        api = $resource(baseUrl);
 
+                    function login(username, password) {
+                        var result = api.save(null, { username: username, password: password }, function () {
+                            if (result.IsSuccessful) {
+                                authToken = result.AuthToken;
+                            }
+                            configureHeaders();
+                        });
+                    }
+
+                    function logout() {
+                        api.delete(null, null, function () {
+                            authToken = null;
+                            configureHeaders();
+                        });
+                    }
+
+                    return {
+                        Login: login,
+                        Logout: logout
+                    };
                 }
 
                 function configureHeaders() {
@@ -30,7 +52,7 @@
             .config(['AuthServiceProvider', function (authProvider) {
                 authProvider.ConfigureHeaders();
             }])
-            .controller('H', ['$scope', 'ReservationService', 'UserService', function ($scope, reservationApi, userApi) {
+            .controller('H', ['$scope', 'ReservationService', 'UserService', 'AuthService', function ($scope, reservationApi, userApi, auth) {
 
             var reservation = {
                     RequestedBy: userApi.Current(),
@@ -62,6 +84,14 @@
                 });
             }
             $scope.Reservation = reservation;
+            $scope.Username = '';
+            $scope.Password = '';
+            $scope.Login = function () {
+                auth.Login($scope.Username, $scope.Password);
+            }
+            $scope.Logout = function () {
+                auth.Logout();
+            }
 
             }])
             .factory('ReservationService', ['$resource', function ($resource) {
@@ -103,6 +133,11 @@
             <input placeholder="Ends at" ng-model="Reservation.EndsAt" />
             <button ng-click="SaveReservation()">Save</button>
         </div>
+
+        <input placeholder="Username" ng-model="Username" />
+        <input type="password" placeholder="Password" ng-model="Password" />
+        <button ng-click="Login()">Login</button>
+        <button ng-click="Logout()">Logout</button>
 
         <ul>
             <li ng-repeat="r in Reservations">

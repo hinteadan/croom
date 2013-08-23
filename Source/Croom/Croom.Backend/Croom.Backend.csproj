@@ -99,6 +99,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Commands\LoginCommand.cs" />
+    <Compile Include="Commands\LoginResult.cs" />
+    <Compile Include="Controllers\AuthController.cs" />
     <Compile Include="Controllers\ReservationController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
@@ -125,6 +128,10 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Croom.Authentication\Croom.Authentication.csproj">
+      <Project>{9cf0ec7b-102d-4945-8751-ea5ff099a6ac}</Project>
+      <Name>Croom.Authentication</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Croom.Data\Croom.Data.csproj">
       <Project>{5ebc7d33-f6ec-4447-914d-06af13399df9}</Project>
       <Name>Croom.Data</Name>

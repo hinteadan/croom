@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Authenticators\ActiveDirectoryAuthenticator.cs" />
+    <Compile Include="Authenticators\DummyAuthenticator.cs" />
     <Compile Include="Authenticators\MappingExtensions.cs" />
     <Compile Include="IAuthenticate.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

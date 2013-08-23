@@ -20,7 +20,7 @@ namespace Croom.Backend.Infrastructure
             builder.RegisterApiControllers(Assembly.GetExecutingAssembly());
 
             builder.RegisterInstance<InMemoryStore>(new InMemoryStore()).AsImplementedInterfaces();
-            builder.RegisterType<ActiveDirectoryAuthenticator>().AsImplementedInterfaces();
+            builder.RegisterType<DummyAuthenticator>().AsImplementedInterfaces();
 
             GlobalConfiguration.Configuration.DependencyResolver =
                 new AutofacWebApiDependencyResolver(builder.Build());

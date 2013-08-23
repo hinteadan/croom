@@ -13,7 +13,7 @@
         app
             .provider('AuthService', ['$httpProvider', function ($httpProvider) {
 
-                var authToken = 'SomeToken';
+                var authToken = null;
 
                 function AuthService($resource) {
                     var baseUrl = '/Croom.Backend/Auth',

@@ -16,7 +16,7 @@ namespace Croom.Authentication.Authenticators
             "h"
         };
         private readonly string[] validPasswords = new string[]{
-            "123"
+            "123", "p"
         };
 
 

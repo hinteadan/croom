@@ -22,6 +22,7 @@ namespace Croom.Backend.Controllers
 
         public object Post(Reservation reservation)
         {
+            Check.NotNull(reservation, "reservation");
             return new { Id = reservationEngine.AddReservation(reservation) };
         }
 

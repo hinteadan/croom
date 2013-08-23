@@ -58,6 +58,7 @@
     <None Include="Scripts\Lib\jquery-1.9.1.intellisense.js" />
     <Content Include="Scripts\app.js" />
     <Content Include="Scripts\Controllers\home.js" />
+    <Content Include="Scripts\Directives\screensaver.js" />
     <Content Include="Scripts\Lib\bootstrap.js" />
     <Content Include="Scripts\Lib\bootstrap.min.js" />
     <Content Include="Scripts\Lib\jquery-1.9.1.js" />
@@ -365,7 +366,6 @@
     <Content Include="Scripts\Lib\i18n\angular-locale_zh.js" />
     <Content Include="Scripts\Lib\i18n\angular-locale_zu-za.js" />
     <Content Include="Scripts\Lib\i18n\angular-locale_zu.js" />
-    <Content Include="Scripts\Lib\screensaver.js" />
     <Content Include="Views\home.html" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">

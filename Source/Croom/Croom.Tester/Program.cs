@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.DirectoryServices;
+using System.DirectoryServices.AccountManagement;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Croom.Authentication.Authenticators;
 using Croom.Data;
 using Croom.Data.Providers;
 using Croom.Data.Stores;
@@ -15,20 +18,12 @@ namespace Croom.Tester
     {
         static void Main(string[] args)
         {
-            User me = new User("hintee", "Hintea Dan", "dan.hintea@recognos.ro");
+            var auth = new ActiveDirectoryAuthenticator(new InMemoryStore());
 
-            ReservationEngine reservationEngine = new ReservationEngine(
-                me,
-                new ReservationProvider(new InMemoryStore())
-                );
-
-            var reservation = new Reservation(me, "Test Reservation", DateTime.Now, DateTime.Now.AddHours(1));
-            var otherReservation = new Reservation(me, "Test Reservation", DateTime.Now.AddHours(2), DateTime.Now.AddHours(3));
-
-            reservationEngine.ChangeReservation(reservationEngine.AddReservation(reservation), otherReservation);
-
-            var res = reservationEngine.GetAll();
-
+            Guid? token;
+            User user;
+            auth.Credentials("dan.hintea", "Lpl4User2012", out token);
+            auth.Authenticate(token.Value, out user);
 
             Console.WriteLine("Done @ {0}", DateTime.Now);
             Console.ReadKey();

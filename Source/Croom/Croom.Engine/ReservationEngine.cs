@@ -12,15 +12,15 @@ namespace Croom.Engine
     public class ReservationEngine
     {
         private readonly ReservationProvider repository;
-        private readonly User currentUser;
+        private readonly Lazy<User> currentUser;
 
-        public ReservationEngine(User currentUser, ReservationProvider reservationProvider)
+        public ReservationEngine(Func<User> currentUserProvider, ReservationProvider reservationProvider)
         {
             Check.NotNull(reservationProvider, "reservationProvider");
-            Check.NotNull(currentUser, "currentUser");
+            Check.NotNull(currentUserProvider, "currentUserProvider");
 
             this.repository = reservationProvider;
-            this.currentUser = currentUser;
+            this.currentUser = new Lazy<User>(currentUserProvider);
         }
 
         public Guid AddReservation(Reservation newReservation)
@@ -88,7 +88,8 @@ namespace Croom.Engine
 
         private bool IsCurrentUserReservationOwner(Reservation reservation)
         {
-            return reservation.RequestedBy.Username == currentUser.Username;
+            Check.Condition(currentUser.Value != null, "Current user is undefined");
+            return reservation.RequestedBy.Username == currentUser.Value.Username;
         }
     }
 }

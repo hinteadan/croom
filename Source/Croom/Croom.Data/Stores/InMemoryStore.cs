@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Croom.Data.Stores
 {
-    public class InMemoryStore : IStoreDataAsKeyValue
+    public class InMemoryStore : IStoreDataAsKeyValueLikeNothing
     {
         private readonly Dictionary<Guid, object> dataDictionary = new Dictionary<Guid, object>();
 
@@ -30,6 +30,10 @@ namespace Croom.Data.Stores
 
         public object Load(Guid id)
         {
+            if (!dataDictionary.ContainsKey(id))
+            {
+                return null;
+            }
             return dataDictionary[id];
         }
 

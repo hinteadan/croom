@@ -4,16 +4,15 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{EC4BCA06-A555-4CE4-90B5-23EF15E1BD57}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <ProjectGuid>{9CF0EC7B-102D-4945-8751-EA5FF099A6AC}</ProjectGuid>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Croom.Tester</RootNamespace>
-    <AssemblyName>Croom.Tester</AssemblyName>
+    <RootNamespace>Croom.Authentication</RootNamespace>
+    <AssemblyName>Croom.Authentication</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -23,7 +22,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -32,7 +30,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Recognos.Core, Version=1.0.0.6, Culture=neutral, PublicKeyToken=348273104f929672, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dependencies\Recognos.Core.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.DirectoryServices" />
     <Reference Include="System.DirectoryServices.AccountManagement" />
@@ -43,24 +46,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Program.cs" />
+    <Compile Include="Authenticators\ActiveDirectoryAuthenticator.cs" />
+    <Compile Include="Authenticators\DummyAuthenticator.cs" />
+    <Compile Include="Authenticators\MappingExtensions.cs" />
+    <Compile Include="IAuthenticate.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Croom.Authentication\Croom.Authentication.csproj">
-      <Project>{9cf0ec7b-102d-4945-8751-ea5ff099a6ac}</Project>
-      <Name>Croom.Authentication</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Croom.Data\Croom.Data.csproj">
       <Project>{5ebc7d33-f6ec-4447-914d-06af13399df9}</Project>
       <Name>Croom.Data</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Croom.Engine\Croom.Engine.csproj">
-      <Project>{74232196-872e-4e23-a42a-2a3f2596993e}</Project>
-      <Name>Croom.Engine</Name>
     </ProjectReference>
     <ProjectReference Include="..\Croom.Model\Croom.Model.csproj">
       <Project>{f8b23a0c-8a74-4d1d-b950-0e32c1c466b9}</Project>

@@ -11,16 +11,18 @@ namespace Croom.Data.Providers
     public class ReservationProvider
     {
         private readonly IStoreDataAsKeyValue dataStore;
+        private readonly IEnumerable<KeyValuePair<Guid, object>> reservationStore;
 
         public ReservationProvider(IStoreDataAsKeyValue store)
         {
             Check.NotNull(store, "store");
             this.dataStore = store;
+            reservationStore = this.dataStore.Load().Where(d => d.Value is Reservation);
         }
 
         public IEnumerable<KeyValuePair<Guid, Reservation>> FetchAll()
         {
-            return dataStore.Load().Select(d =>
+            return reservationStore.Select(d =>
                 new KeyValuePair<Guid, Reservation>(d.Key, d.Value as Reservation)
                 ).ToArray();
         }

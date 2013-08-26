@@ -7,10 +7,58 @@
     <script src="Scripts/Lib/angular.js"></script>
     <script src="Scripts/Lib/angular-resource.js"></script>
     <script src="Scripts/app.js"></script>
-    <script src="Scripts/Lib/screensaver.js"></script>
+    <script src="Scripts/Directives/screensaver.js"></script>
     <script type="text/javascript">
         var app = angular.module('Croom');
-        app.controller('H', ['$scope', 'ReservationService', 'UserService', function ($scope, reservationApi, userApi) {
+        app
+            .provider('AuthService', ['$httpProvider', function ($httpProvider) {
+
+                var authToken = null;
+
+                function AuthService($resource) {
+                    var baseUrl = '/Croom.Backend/Auth',
+                        api = $resource(baseUrl);
+
+                    function login(username, password, onSuccess) {
+                        var result = api.save(null, { username: username, password: password }, function () {
+                            if (result.IsSuccessful) {
+                                authToken = result.AuthToken;
+                            }
+                            configureHeaders();
+                            if (onSuccess) {
+                                onSuccess.call(null);
+                            }
+                        });
+                    }
+
+                    function logout(onSuccess) {
+                        api.delete(null, null, function () {
+                            authToken = null;
+                            configureHeaders();
+                            if (onSuccess) {
+                                onSuccess.call(null);
+                            }
+                        });
+                    }
+
+                    return {
+                        Login: login,
+                        Logout: logout
+                    };
+                }
+
+                function configureHeaders() {
+                    $httpProvider.defaults.headers.common['X-Croom-AuthToken'] = authToken;
+                }
+
+                this.ConfigureHeaders = configureHeaders;
+
+                this.$get = ['$resource', AuthService];
+            }])
+            .config(['AuthServiceProvider', function (authProvider) {
+                authProvider.ConfigureHeaders();
+            }])
+            .controller('H', ['$scope', 'ReservationService', 'UserService', 'AuthService', function ($scope, reservationApi, userApi, auth) {
 
             var reservation = {
                     RequestedBy: userApi.Current(),
@@ -42,9 +90,21 @@
                 });
             }
             $scope.Reservation = reservation;
+            $scope.Username = '';
+            $scope.Password = '';
+            $scope.Login = function () {
+                auth.Login($scope.Username, $scope.Password, function () {
+                    reservation.RequestedBy = userApi.Current();
+                });
+            }
+            $scope.Logout = function () {
+                auth.Logout(function () {
+                    reservation.RequestedBy = userApi.Current();
+                });
+            }
 
             }])
-            .service('ReservationService', ['$resource', function ($resource) {
+            .factory('ReservationService', ['$resource', function ($resource) {
                 var baseUrl = '/Croom.Backend/Reservation/:id',
                     api = $resource(baseUrl, { id: '' }, { change: { method: 'PUT' } });
 
@@ -56,7 +116,7 @@
                     Cancel: api.delete
                 };
             }])
-            .service('UserService', ['$resource', function ($resource) {
+            .factory('UserService', ['$resource', function ($resource) {
                 var baseUrl = '/Croom.Backend/User/:id',
                     api = $resource(baseUrl, { id: '' });
 
@@ -83,6 +143,11 @@
             <input placeholder="Ends at" ng-model="Reservation.EndsAt" />
             <button ng-click="SaveReservation()">Save</button>
         </div>
+
+        <input placeholder="Username" ng-model="Username" />
+        <input type="password" placeholder="Password" ng-model="Password" />
+        <button ng-click="Login()">Login</button>
+        <button ng-click="Logout()">Logout</button>
 
         <ul>
             <li ng-repeat="r in Reservations">

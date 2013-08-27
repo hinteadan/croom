@@ -9,6 +9,8 @@
         this.scope = true;
         this.link = function (sc, el) {
             scope = sc;
+            scope.currentTime = getCurrentTime();
+            scope.roomStatus = "Free";
             element = el;
             run();
         }
@@ -30,11 +32,24 @@
             }).click();
         }
 
+        function getCurrentTime() {
+            var date = new Date();
+            return date.getHours() + ':' + date.getMinutes();
+        }
+
         function resetTimeout(timeoutTime) {
             clearTimeout(timeout);
             timeout = setTimeout(function () {
                 displayScreensaver();
+                updateScreensaverInfo();
             }, timeoutTime);
+        }
+
+        function updateScreensaverInfo(){
+            scope.currentTime = getCurrentTime();
+            scope.roomStatus = "Ocupied";
+            scope.roomDetails = "Ala Bala";
+            scope.$apply();
         }
 
         function displayScreensaver() {
@@ -45,8 +60,9 @@
         }
 
         function animatePhotos() {
-            var visibleImg = element.find('.current-image'),
-                hiddenImg = element.find(':not(.current-image)');
+            var images = element.find('.screensaver-images'),
+                visibleImg = images.find('.current-image'),
+                hiddenImg = images.find(':not(.current-image)');
             if (!image || (image.src.indexOf("Content/dummyImg.JPG") != -1)) {
                 image = new Image();
                 image.src = "Content/dummyImg.JPG"

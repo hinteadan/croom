@@ -1,4 +1,13 @@
 ﻿<div>
-    <img src="#"  class="screensaver-image current-image" />
-    <img src="#"  class="screensaver-image" style="display:none"/>
+    <div class="screensaver-images">
+        <img src="#"  class="screensaver-image current-image" />
+        <img src="#"  class="screensaver-image" style="display:none"/>
+    </div>
+    <section class="screensaver-infos">
+        <article class="screensaver-info">
+            <p>Current Time: <label ng-bind="currentTime"></label></p>
+            <p>Room Status:  <label ng-bind="roomStatus"></label></p>
+            <p>Details:  <label ng-bind="roomDetails"></label></p>
+        </article>
+    </section>
 </div>

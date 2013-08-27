@@ -8,8 +8,6 @@
         this.templateUrl = 'Views/Templates/screensaver.html';
         this.scope = true;
         this.link = function (sc, el) {
-            sc.firstImageSrc = '#';
-            sc.secondImageSrc = '#';
             scope = sc;
             element = el;
             run();
@@ -42,27 +40,21 @@
         }
 
         function displayScreensaver() {
-            fetchSrcAndSlidePhoto();
+            animatePhotos();
             showScreensaver();
             resetTimeout(5000);
             fetchRandomImage();
         }
 
-        function fetchSrcAndSlidePhoto() {
-            var visibleImg = element.find('.current'),
-                hiddenImg = element.find(':not(.current)');
-            //activeImage = inactiveImage;
+        function animatePhotos() {
+            var visibleImg = element.find('.current-image'),
+                hiddenImg = element.find(':not(.current-image)');
+
             hiddenImg.attr('src', inactiveImage.src);
-            visibleImg.effect("fade", {}, 2000);
-            hiddenImg.fadeIn(2000);//effect("slide", {}, 1000);
-            visibleImg.removeClass('current');
-            hiddenImg.addClass('current');
-
-
-            //hiddenImg.attr('style', 'display:inline;')
-
-            //scope.firstImageSrc = self.image.src;
-            //scope.$apply();
+            visibleImg.fadeOut("slow");
+            hiddenImg.fadeIn('slow');
+            visibleImg.removeClass('current-image');
+            hiddenImg.addClass('current-image');
         }
 
         function showScreensaver() {

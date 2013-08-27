@@ -1,11 +1,26 @@
 ﻿(function () {
     "use strict";
 
-    var screensaver = function (element) {
+    var screensaver = function () {
 
-        var timeout;
-        var image;
-        var self = this;
+        this.restrict = 'EA';
+        this.replace = true;
+        this.templateUrl = 'Views/Templates/screensaver.html';
+        this.scope = true;
+        this.link = function (sc, el) {
+            sc.firstImageSrc = '#';
+            sc.secondImageSrc = '#';
+            scope = sc;
+            element = el;
+            run();
+        }
+
+        var timeout,
+            activeImage,
+            inactiveImage,
+            element,
+            scope,
+            self = this;
 
         function run() {
             attachEvents();
@@ -27,13 +42,36 @@
         }
 
         function displayScreensaver() {
-            element.addClass('screensaver-active');
-            var backgroundImageUrl = "url(" + self.image.src + ")";
-            element[0].style.background = backgroundImageUrl;
+            fetchSrcAndSlidePhoto();
+            showScreensaver();
             resetTimeout(5000);
             fetchRandomImage();
         }
+
+        function fetchSrcAndSlidePhoto() {
+            var visibleImg = element.find('.current'),
+                hiddenImg = element.find(':not(.current)');
+            //activeImage = inactiveImage;
+            hiddenImg.attr('src', inactiveImage.src);
+            visibleImg.effect("fade", {}, 2000);
+            hiddenImg.fadeIn(2000);//effect("slide", {}, 1000);
+            visibleImg.removeClass('current');
+            hiddenImg.addClass('current');
+
+
+            //hiddenImg.attr('style', 'display:inline;')
+
+            //scope.firstImageSrc = self.image.src;
+            //scope.$apply();
+        }
+
+        function showScreensaver() {
+            element.addClass('screensaver-active');
+            element.removeClass('screensaver-disabled');
+        }
+
         function hideScreensaver() {
+            element.addClass('screensaver-disabled');
             element.removeClass('screensaver-active');
         }
 
@@ -44,26 +82,21 @@
             url = url.replace(/:user_id/, '102916204430573119519').replace(/:album_id/, '5910944160374225217');
 
             var images = new Array();
+
             $.getJSON(url, function (data) {
                 $.each(data.feed.entry, function (i, element) {
                     images.push(element["media$group"]["media$content"][0]);
                 });
                 var random = Math.floor(Math.random() * data.feed.entry.length);
-                self.image = new Image();
-                self.image.src=images[random].url;
+                inactiveImage = new Image();
+                inactiveImage.src = images[random].url;
             });
         }
-
-        return {
-            run: run
-        };
     }
 
     var app = angular.module('Croom');
     app.directive('screensaver', function () {
-        return function (scope, element) {
-            new screensaver(element).run();
-        }
+        return new screensaver();
     })
 
 }).call(this);

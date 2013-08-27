@@ -14,11 +14,9 @@
         }
 
         var timeout,
-            activeImage,
-            inactiveImage,
+            image,
             element,
-            scope,
-            self = this;
+            scope;
 
         function run() {
             attachEvents();
@@ -49,8 +47,13 @@
         function animatePhotos() {
             var visibleImg = element.find('.current-image'),
                 hiddenImg = element.find(':not(.current-image)');
-
-            hiddenImg.attr('src', inactiveImage.src);
+            if (!image || (image.src.indexOf("Content/dummyImg.JPG") != -1)) {
+                image = new Image();
+                image.src = "Content/dummyImg.JPG"
+                visibleImg.attr('src', image.src);
+                return;
+            }
+            hiddenImg.attr('src', image.src);
             visibleImg.fadeOut("slow");
             hiddenImg.fadeIn('slow');
             visibleImg.removeClass('current-image');
@@ -80,8 +83,8 @@
                     images.push(element["media$group"]["media$content"][0]);
                 });
                 var random = Math.floor(Math.random() * data.feed.entry.length);
-                inactiveImage = new Image();
-                inactiveImage.src = images[random].url;
+                image = new Image();
+                image.src = images[random].url;
             });
         }
     }

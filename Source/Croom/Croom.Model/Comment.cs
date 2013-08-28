@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Recognos.Core;
+﻿using Recognos.Core;
+using System;
 
 namespace Croom.Model
 {

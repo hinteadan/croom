@@ -1,10 +1,8 @@
-﻿using System;
+﻿using Croom.Model;
+using Recognos.Core;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Croom.Model;
-using Recognos.Core;
 
 namespace Croom.Data.Providers
 {

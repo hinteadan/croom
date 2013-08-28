@@ -1,16 +1,14 @@
-﻿using System;
+﻿using Newtonsoft.Json.Linq;
+using Recognos.Core;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Newtonsoft.Json.Linq;
-using Recognos.Core;
 
 namespace Croom.Model
 {
     public class Reservation
     {
-        private readonly Dictionary<string, string> details = new Dictionary<string,string>();
+        private readonly Dictionary<string, string> details = new Dictionary<string, string>();
         private readonly List<Comment> comments = new List<Comment>();
         private readonly HashSet<User> participants = new HashSet<User>();
 
@@ -22,17 +20,17 @@ namespace Croom.Model
         public DateTime StartsAt { get; private set; }
         public TimeSpan LastsFor { get; private set; }
         public DateTime EndsAt { get; private set; }
-        public object Details 
-        { 
+        public object Details
+        {
             get
             {
                 JObject json = new JObject();
-                foreach(var entry in details)
+                foreach (var entry in details)
                 {
                     json.Add(entry.Key, JToken.FromObject(entry.Value));
                 }
                 return json;
-            } 
+            }
         }
         public IEnumerable<User> Participants
         {
@@ -50,7 +48,7 @@ namespace Croom.Model
         }
 
         private Reservation() { }
-        public Reservation(User requestedBy, string title, DateTime startsAt, DateTime endsAt) 
+        public Reservation(User requestedBy, string title, DateTime startsAt, DateTime endsAt)
         {
             Check.NotNull(requestedBy, "requestedBy");
             Check.NotEmpty(title, "title");

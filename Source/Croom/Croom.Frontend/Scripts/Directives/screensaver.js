@@ -46,7 +46,7 @@
         }
 
         function updateScreensaverInfo(){
-            scope.currentTime = getCurrentTime();
+            scope.currentTime = moment().format('HH:mm')
             setRoomInfo();
             if (!scope.$$phase) {
                 scope.$apply();

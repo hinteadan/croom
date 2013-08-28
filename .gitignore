@@ -108,3 +108,6 @@ Backup*/
 UpgradeLog*.XML
 
 Output
+/dhx
+
+/dhx scheduler

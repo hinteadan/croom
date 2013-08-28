@@ -27,14 +27,9 @@
 
         function attachEvents() {
             $(document).on("mousemove keydown click", function () {
-                resetTimeout(10000);
+                resetTimeout(60000);
                 hideScreensaver();
             }).click();
-        }
-
-        function getCurrentTime() {
-            var date = new Date();
-            return date.getHours() + ':' + date.getMinutes();
         }
 
         function resetTimeout(timeoutTime) {
@@ -69,7 +64,7 @@
         function displayScreensaver() {
             animatePhotos();
             showScreensaver();
-            resetTimeout(5000);
+            resetTimeout(10000);
             fetchRandomImage();
         }
 

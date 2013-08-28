@@ -1,4 +1,12 @@
-﻿.screensaver-active{
+﻿html, body{
+	margin:0px;
+	padding:0px;
+	height:100%;
+	overflow:hidden;
+}	
+
+/*Screensaver*/
+.screensaver-active{
     width:100% !important;
     height:100% !important;
     position:absolute;

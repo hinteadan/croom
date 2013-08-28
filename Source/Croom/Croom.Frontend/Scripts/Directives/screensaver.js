@@ -16,6 +16,7 @@
 
         var timeout,
             image,
+            recentImages = new Array(10),
             element,
             scope;
 
@@ -47,8 +48,6 @@
         function updateScreensaverInfo(){
             scope.currentTime = getCurrentTime();
             setRoomInfo();
-            //scope.roomStatus = "Ocupied";
-            //scope.roomDetails = "Ala Bala";
             if (!scope.$$phase) {
                 scope.$apply();
             }
@@ -116,8 +115,13 @@
                     images.push(element["media$group"]["media$content"][0]);
                 });
                 var random = Math.floor(Math.random() * data.feed.entry.length);
+                while(_.contains(recentImages, images[random].url)) {
+                    random = Math.floor(Math.random() * data.feed.entry.length);
+                }
                 image = new Image();
                 image.src = images[random].url;
+                recentImages.push(image.src);
+                recentImages.shift();
             });
         }
     }

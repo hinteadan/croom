@@ -89,5 +89,21 @@ namespace Croom.Engine
             Check.Condition(currentUser.Value != null, "Current user is undefined");
             return reservation.RequestedBy.Username == currentUser.Value.Username;
         }
+
+        public MeetingRoomStatus GetCurrentStatus()
+        {
+            //TODO: Implement This
+
+            //return new MeetingRoomStatus
+            //{
+            //    IsOccupied = true,
+            //    CurrentReservation = new Reservation(new User("vlad.sda", "mama leone", "asdasd@sdas.com"), "Dummy Title", DateTime.Now, DateTime.Now.AddHours(2))
+            //};
+            return new MeetingRoomStatus
+            {
+                IsOccupied = false,
+                CurrentReservation = null
+            };
+        }
     }
 }

@@ -7,7 +7,7 @@
         <article class="screensaver-info">
             <p>Current Time: <label ng-bind="currentTime"></label></p>
             <p>Room Status:  <label ng-bind="roomStatus"></label></p>
-            <p>Details:  <label ng-bind="roomDetails"></label></p>
+            <p ng-show="roomDetails">Details:  <label ng-bind="roomDetails"></label></p>
         </article>
     </section>
 </div>

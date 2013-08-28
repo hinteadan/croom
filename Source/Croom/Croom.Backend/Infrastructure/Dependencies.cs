@@ -20,8 +20,10 @@ namespace Croom.Backend.Infrastructure
             builder.RegisterWebApiFilterProvider(GlobalConfiguration.Configuration);
 
             builder.RegisterInstance<InMemoryStore>(new InMemoryStore()).AsImplementedInterfaces();
+
             //builder.RegisterType<DummyAuthenticator>().AsImplementedInterfaces();
             builder.RegisterType<ActiveDirectoryAuthenticator>().AsImplementedInterfaces();
+
             builder.RegisterType<AuthorizationFilter>()
                 .AsWebApiAuthorizationFilterFor<ReservationController>(c => c.Post(default(Reservation)))
                 .InstancePerApiRequest();

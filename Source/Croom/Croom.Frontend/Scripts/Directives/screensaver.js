@@ -1,7 +1,7 @@
 ﻿(function () {
     "use strict";
 
-    var screensaver = function () {
+    var screensaver = function (http) {
 
         this.restrict = 'EA';
         this.replace = true;
@@ -9,9 +9,8 @@
         this.scope = true;
         this.link = function (sc, el) {
             scope = sc;
-            scope.currentTime = getCurrentTime();
-            scope.roomStatus = "Free";
             element = el;
+            updateScreensaverInfo();
             run();
         }
 
@@ -47,9 +46,25 @@
 
         function updateScreensaverInfo(){
             scope.currentTime = getCurrentTime();
-            scope.roomStatus = "Ocupied";
-            scope.roomDetails = "Ala Bala";
-            scope.$apply();
+            setRoomInfo();
+            //scope.roomStatus = "Ocupied";
+            //scope.roomDetails = "Ala Bala";
+            if (!scope.$$phase) {
+                scope.$apply();
+            }
+        }
+
+        function setRoomInfo(){
+            http.get('/Croom.Backend/Status').success(function (data) {
+                if (data && data.IsOccupied) {
+                    scope.roomStatus = "Occupied";
+                    scope.roomDetails = data.CurrentReservation.Title + "\n" + data.CurrentReservation.Description;
+                }
+                else {
+                    scope.roomStatus = "Available";
+                    scope.roomDetails = null;
+                }
+            });
         }
 
         function displayScreensaver() {
@@ -63,12 +78,14 @@
             var images = element.find('.screensaver-images'),
                 visibleImg = images.find('.current-image'),
                 hiddenImg = images.find(':not(.current-image)');
+
             if (!image || (image.src.indexOf("Content/dummyImg.JPG") != -1)) {
                 image = new Image();
                 image.src = "Content/dummyImg.JPG"
                 visibleImg.attr('src', image.src);
                 return;
             }
+
             hiddenImg.attr('src', image.src);
             visibleImg.fadeOut("slow");
             hiddenImg.fadeIn('slow');
@@ -106,8 +123,8 @@
     }
 
     var app = angular.module('Croom');
-    app.directive('screensaver', function () {
-        return new screensaver();
-    })
+    app.directive('screensaver', ['$http', function ($http) {
+        return new screensaver($http);
+    }])
 
 }).call(this);

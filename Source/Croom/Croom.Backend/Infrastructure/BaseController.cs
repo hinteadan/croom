@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Web.Http;
-using Croom.Data;
+﻿using Croom.Data;
 using Croom.Model;
 using Recognos.Core;
+using System;
+using System.Linq;
+using System.Web.Http;
 
 namespace Croom.Backend.Infrastructure
 {
@@ -38,7 +35,7 @@ namespace Croom.Backend.Infrastructure
                     .SingleOrDefault();
                 currentUser = store.Load(token) as User;
 
-                return currentUser; 
+                return currentUser;
             }
         }
     }

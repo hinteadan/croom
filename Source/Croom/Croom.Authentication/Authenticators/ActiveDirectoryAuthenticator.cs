@@ -1,14 +1,11 @@
-﻿using System;
+﻿using Croom.Data;
+using Croom.Model;
+using Recognos.Core;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.DirectoryServices;
 using System.DirectoryServices.AccountManagement;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Croom.Data;
-using Croom.Model;
-using Recognos.Core;
 
 namespace Croom.Authentication.Authenticators
 {

@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Autofac.Integration.WebApi;
+using Croom.Authentication;
+using Recognos.Core;
+using System;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Web;
 using System.Web.Http.Controllers;
-using System.Web.Http.Filters;
-using Autofac.Integration.WebApi;
-using Croom.Authentication;
-using Recognos.Core;
 
 namespace Croom.Backend.Infrastructure.Filters
 {

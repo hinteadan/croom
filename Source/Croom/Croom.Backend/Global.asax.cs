@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using Croom.Backend.Infrastructure;
 using System.Web.Http;
-using System.Web.Routing;
-using Croom.Backend.Infrastructure;
 
 namespace Croom.Backend
 {

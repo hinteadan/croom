@@ -1,11 +1,8 @@
-﻿using System;
+﻿using Croom.Model;
+using Recognos.Core;
 using System.Collections.Generic;
 using System.DirectoryServices;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Croom.Model;
-using Recognos.Core;
 
 namespace Croom.Authentication.Authenticators
 {
@@ -19,7 +16,7 @@ namespace Croom.Authentication.Authenticators
 
             return new User(
                 username,
-                (string)directoryEntry.Properties["cn"].Value, 
+                (string)directoryEntry.Properties["cn"].Value,
                 ComposeEmailAddress(username, knownEmails)
                 );
         }

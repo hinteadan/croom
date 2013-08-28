@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Croom.Backend.Infrastructure.Filters;
 using System.Linq;
 using System.Web.Http;
-using Croom.Backend.Infrastructure.Filters;
 
 namespace Croom.Backend
 {

@@ -17,12 +17,12 @@ namespace Croom.Backend.Controllers
             : base(store)
         {
             Check.NotNull(store, "store");
-            this.reservationEngine = 
+            this.reservationEngine =
                 new ReservationEngine(() => CurrentUser, new ReservationProvider(store));
             Check.InjectedMembers(this);
         }
 
-        
+
         public object Post(Reservation reservation)
         {
             Check.NotNull(reservation, "reservation");

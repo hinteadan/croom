@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using Recognos.Core;
+﻿using Recognos.Core;
+using System;
 
 namespace Croom.Backend.Commands
 {
@@ -24,8 +21,8 @@ namespace Croom.Backend.Commands
         {
             Check.NotEmpty(token, "token");
 
-            return new LoginResult 
-            { 
+            return new LoginResult
+            {
                 IsSuccessful = true,
                 AuthToken = token
             };

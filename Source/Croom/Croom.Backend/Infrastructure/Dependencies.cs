@@ -1,17 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Web;
-using System.Web.Http;
-using Autofac;
+﻿using Autofac;
 using Autofac.Integration.WebApi;
-using Croom.Authentication;
 using Croom.Authentication.Authenticators;
 using Croom.Backend.Controllers;
 using Croom.Backend.Infrastructure.Filters;
 using Croom.Data.Stores;
 using Croom.Model;
+using System;
+using System.Reflection;
+using System.Web.Http;
 
 namespace Croom.Backend.Infrastructure
 {
@@ -24,8 +20,8 @@ namespace Croom.Backend.Infrastructure
             builder.RegisterWebApiFilterProvider(GlobalConfiguration.Configuration);
 
             builder.RegisterInstance<InMemoryStore>(new InMemoryStore()).AsImplementedInterfaces();
-            builder.RegisterType<DummyAuthenticator>().AsImplementedInterfaces();
-
+            //builder.RegisterType<DummyAuthenticator>().AsImplementedInterfaces();
+            builder.RegisterType<ActiveDirectoryAuthenticator>().AsImplementedInterfaces();
             builder.RegisterType<AuthorizationFilter>()
                 .AsWebApiAuthorizationFilterFor<ReservationController>(c => c.Post(default(Reservation)))
                 .InstancePerApiRequest();

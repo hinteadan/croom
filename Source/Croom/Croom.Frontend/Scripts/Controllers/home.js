@@ -21,6 +21,14 @@
 			},
 			{ name: "time", height: 72, type: "time", map_to: "auto" }
         ];
+        scheduler.attachEvent("onClick", function (id, e) {
+            alert("require credential");
+            scheduler.showLightbox(id)
+        });
+        scheduler.attachEvent("onBeforeDrag", function (event_id, mode, native_event_object) {
+            alert("require credential");
+            return true;
+        });
        // scheduler.load('events.xml');
         //scheduler.showLightbox(2);
     });

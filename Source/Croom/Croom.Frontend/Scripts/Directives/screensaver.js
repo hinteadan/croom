@@ -79,7 +79,6 @@
                 visibleImg.attr('src', image.src);
                 return;
             }
-
             hiddenImg.attr('src', image.src);
             visibleImg.fadeOut("slow");
             hiddenImg.fadeIn('slow');

@@ -157,6 +157,7 @@
     <Content Include="Scripts\Controllers\home.js" />
     <Content Include="Scripts\Directives\screensaver.js" />
     <Content Include="Scripts\Lib\dhtmlxscheduler.js" />
+    <Content Include="Scripts\Lib\dhtmlxscheduler_quick_info.js" />
     <Content Include="Scripts\Lib\jquery-ui-1.10.3.js" />
     <Content Include="Scripts\Lib\jquery-ui-1.10.3.min.js" />
     <Content Include="Scripts\Lib\bootstrap.js" />

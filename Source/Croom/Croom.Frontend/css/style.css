@@ -70,3 +70,19 @@ form > div{
     margin:20px;
     width:400px;
 }
+
+/*fixes between bootstrap and dhtmlx styles*/
+.dhx_cal_event, .dhx_cal_event > div,
+.dhx_qi_big_icon, .icon_details
+{
+    line-height:normal!important;
+}
+
+*, *:after, *:before{
+    -webkit-box-sizing:initial!important;
+    box-sizing:initial!important;
+}
+.bootstrap-element *{
+    -webkit-box-sizing:border-box!important;
+    box-sizing:border-box!important;
+}

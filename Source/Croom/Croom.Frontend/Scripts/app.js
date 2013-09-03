@@ -1,7 +1,7 @@
 ﻿(function () {
     "use strict";
 
-    var app = angular.module('Croom', ['ngResource'])
+    var app = angular.module('Croom', ['ngResource','ngRoute'])
         .config(function ($routeProvider) {
           $routeProvider
             .when('/', {

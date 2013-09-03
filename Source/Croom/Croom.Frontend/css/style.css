@@ -82,7 +82,10 @@ form > div{
     -webkit-box-sizing:initial!important;
     box-sizing:initial!important;
 }
-.bootstrap-element *{
+.bootstrap-element *,
+.bootstrap-datetimepicker-widget *
+{
     -webkit-box-sizing:border-box!important;
     box-sizing:border-box!important;
 }
+

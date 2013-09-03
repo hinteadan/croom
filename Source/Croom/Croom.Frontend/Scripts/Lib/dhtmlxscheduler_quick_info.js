@@ -171,11 +171,11 @@ scheduler._fill_quick_data  = function(id){
 
 //title content
 	var titleContent = qi.firstChild.firstChild;
-	titleContent.innerHTML = scheduler.templates.quick_info_title(ev.start_date, ev.end_date, ev);
+	titleContent.innerHTML = ev.title.substr(0, 50);
 	var titleDate = titleContent.nextSibling;
 	titleDate.innerHTML = scheduler.templates.quick_info_date(ev.start_date, ev.end_date, ev);
 
 //main content
 	var main = qi.firstChild.nextSibling;
-	main.innerHTML = scheduler.templates.quick_info_content(ev.start_date, ev.end_date, ev);
+	main.innerHTML = ev.description;
 };

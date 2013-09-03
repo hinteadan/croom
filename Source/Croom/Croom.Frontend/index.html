@@ -4,11 +4,13 @@
     <title>Croom - mega awesome conference room scheduller</title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="apple-mobile-web-app-capable" content="yes" /> 
 
     <script src="Scripts/Lib/jquery-1.9.1.js"></script>
     <script src="Scripts/Lib/jquery-ui-1.10.3.js"></script>
     <script src="Scripts/Lib/angular.js"></script>
     <script src="Scripts/Lib/angular-resource.js"></script>
+    <script src="Scripts/Lib/angular-route.js"></script>
     <script src="Scripts/Lib/bootstrap.js"></script>
     <script src="Scripts/Lib/lodash.js"></script>
     <script src="Scripts/Lib/moment.js"></script>
@@ -41,35 +43,30 @@
         </div>
     </div>
 
-    <form role="form" class="bootstrap-element" name="my_form">
+    <form role="form" class="bootstrap-element lightbox-form">
         <div>
             <div class="form-group">
                 <label>Creator</label>
-                <span name="creator" class="form-control"></span>
+                <span ng-model="event.creator" class="form-control"></span>
             </div>
             <div class="form-group">
                 <label for="title">Title</label>
-                <input type="text" name="title" class="form-control" placeholder="Title"/>
+                <input type="text" name="title" class="form-control" placeholder="Title" ng-model="event.title"/>
             </div>
             <div class="form-group">
                 <label for="priority">Priority</label>
-                <select class="form-control" name="priority">
-                    <option value="Low">Low</option>
-                    <option value="Normal">Normal</option>
-                    <option value="High">High</option>
-                </select>
+                <select class="form-control" name="priority" ng-model="event.priority" ng-options="p.value for p in priorities"></select>
             </div>
             <div class="form-group">
                 <label for="description">Description</label>
-                <textarea name="description" class="form-control" placeholder="Description"></textarea>
+                <textarea name="description" class="form-control" placeholder="Description" ng-model="description"></textarea>
             </div>
             <div class="form-group">
-                <label for="startdate">Start Date</label>
-                <input type="text" name="startdate" class="form-control"/>
+                <label for="startDate">Start Date</label>
             </div>
-            <div class="form-group">
-                <label for="enddate">End Date</label>
-                <input type="text" name="enddate" class="form-control"/>
+            <div >
+                <label for="endDate">End Date</label>
+               <!-- <datetimepicker name="endDate" ng-model="event.endDate" ></datetimepicker>-->
             </div>
             <button class="btn btn-default btn-lg btn-block">Save</button>
             <button class="btn btn-default btn-lg btn-block" ng-click="closeLightBox()">Close</button>
@@ -77,6 +74,5 @@
     </form>
 
     <div screensaver class="screensaver-disabled"></div>
-
 </body>
 </html>

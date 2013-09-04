@@ -22,20 +22,35 @@
             $scope.event.title = ev.title || "";
             $scope.event.description = ev.description || "";
             $scope.event.priority = ev.priority ? _.find($scope.priorities, { value: ev.priority }) : $scope.priorities[0];
-            $scope.event.startDate = moment(ev.start_date).format('dd/MM/yyyy hh:mm:ss') || "";
-            $scope.event.endDate = moment(ev.end_date).format('dd/MM/yyyy hh:mm:ss') || "";
+            $scope.event.startDate = ev.start_date || "";
+            $scope.event.endDate = ev.end_date || "";
             if (!$scope.$$phase) {
                 $scope.$apply();
             }
+            scheduler.hideQuickInfo();
+        };
+
+        $scope.saveEvent = function () {
+            var ev = scheduler.getEvent(scheduler.getState().lightbox_id);
+            ev.creator = $scope.event.creator;
+            ev.title = $scope.event.title;
+            ev.description = $scope.event.description;
+            ev.priority = $scope.event.priority;
+            ev.startDate = $scope.event.startDate;
+            ev.endDate = $scope.event.endDate;
+
+            scheduler.endLightbox(true, $element.find('.lightbox-form')[0])
+        }
+
+        $scope.deleteEvent = function () {
+            var event_id = scheduler.getState().lightbox_id;
+            scheduler.endLightbox(false, $element.find('.lightbox-form')[0]);
+            scheduler.deleteEvent(event_id);
         };
 
         $scope.closeLightBox = function () {
             scheduler.endLightbox(false, $element.find('.lightbox-form')[0]);
         };
-
-        $scope.data = {
-            date: moment().format("dd/MM/yyyy hh:mm:ss")
-        }
 
         $scope.priorities = [
            { value: "Low" },
@@ -48,8 +63,8 @@
             title: '',
             description: '',
             priority: $scope.priorities[0],
-            startDate: moment().format('dd/MM/yyyy hh:mm:ss'),
-            endDate: moment().format('dd/MM/yyyy hh:mm:ss')
+            startDate: new Date(),//moment().format('dd/MM/yyyy hh:mm:ss'),
+            endDate: new Date()//moment().format('dd/MM/yyyy hh:mm:ss')
         };
     });
 

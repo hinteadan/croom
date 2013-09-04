@@ -1,7 +1,7 @@
 ﻿(function () {
     "use strict";
 
-    var app = angular.module('Croom', ['ngResource','ngRoute'])
+    var app = angular.module('Croom', ['ngResource', 'ngRoute', 'ui.bootstrap.datetimepicker'])
         .config(function ($routeProvider) {
           $routeProvider
             .when('/', {

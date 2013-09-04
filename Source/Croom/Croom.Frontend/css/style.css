@@ -5,6 +5,10 @@
 	overflow:hidden;
 }	
 
+.w50{
+    width:50%;
+}
+
 /*Screensaver*/
 .screensaver-active{
     width:100% !important;
@@ -62,30 +66,25 @@ form{
     left: 200px;
     background:rgba(0,0,0,.6);
     border-radius: 4px;
-    color: #FFF;
-    text-shadow: -1px -1px 0 rgba(0,0,0,.5);
+    color: whitesmoke;
 }
 
-form > div{
+form > fieldset{
     margin:20px;
     width:400px;
 }
 
+form > fieldset legend{
+    color: whitesmoke;
+}
+
 /*fixes between bootstrap and dhtmlx styles*/
 .dhx_cal_event, .dhx_cal_event > div,
-.dhx_qi_big_icon, .icon_details
+.dhx_qi_big_icon, .icon_details,
+.dhx_cal_event_clear
 {
-    line-height:normal!important;
+    line-height:initial!important;
 }
-
-*, *:after, *:before{
-    -webkit-box-sizing:initial!important;
-    box-sizing:initial!important;
+.datetime-picker{
+    color:black;
 }
-.bootstrap-element *,
-.bootstrap-datetimepicker-widget *
-{
-    -webkit-box-sizing:border-box!important;
-    box-sizing:border-box!important;
-}
-

@@ -14,6 +14,7 @@
     <script src="Scripts/Lib/bootstrap.js"></script>
     <script src="Scripts/Lib/lodash.js"></script>
     <script src="Scripts/Lib/moment.js"></script>
+    <script src="Scripts/Lib/datetimepicker.js"></script>
     <script src="Scripts/Lib/dhtmlxscheduler.js"></script>
     <script src="Scripts/Lib/dhtmlxscheduler_quick_info.js"></script>
 
@@ -22,6 +23,8 @@
     <script src="Scripts/Controllers/home.js"></script>
 
     <link href="css/bootstrap/bootstrap.css" rel="stylesheet" />
+    <link href="css/bootstrap/bootstrap-responsive.css" rel="stylesheet" />
+    <link href="css/bootstrap/datetimepicker.css" rel="stylesheet" />
     <link href="css/dhtmlx/dhtmlxscheduler.css" rel="stylesheet" />
     <link href="css/style.css" rel="stylesheet" />
 </head>
@@ -29,13 +32,13 @@
 
     <div id="scheduler_here" class="dhx_cal_container" style='width: 100%; height: 100%;'>
         <div class="dhx_cal_navline">
-            <div class="dhx_cal_prev_button">&nbsp;</div>
-            <div class="dhx_cal_next_button">&nbsp;</div>
-            <div class="dhx_cal_today_button"></div>
+            <div class="dhx_cal_prev_button btn-primary">&nbsp;</div>
+            <div class="dhx_cal_next_button btn-primary">&nbsp;</div>
+            <div class="dhx_cal_today_button btn-primary"></div>
             <div class="dhx_cal_date"></div>
-            <div class="dhx_cal_tab" name="day_tab" style="right: 204px;"></div>
-            <div class="dhx_cal_tab" name="week_tab" style="right: 140px;"></div>
-            <div class="dhx_cal_tab" name="month_tab" style="right: 76px;"></div>
+            <div class="dhx_cal_tab btn-primary" name="day_tab" style="right: 204px;"></div>
+            <div class="dhx_cal_tab btn-primary" name="week_tab" style="right: 140px;"></div>
+            <div class="dhx_cal_tab btn-primary" name="month_tab" style="right: 76px;"></div>
         </div>
         <div class="dhx_cal_header">
         </div>
@@ -44,33 +47,56 @@
     </div>
 
     <form role="form" class="bootstrap-element lightbox-form">
-        <div>
-            <div class="form-group">
-                <label>Creator</label>
-                <span ng-model="event.creator" class="form-control"></span>
+        <fieldset>
+             <legend>Event Details</legend>
+            <div>
+                <p>Creator: {{event.creator}}</p>
+                
             </div>
-            <div class="form-group">
+            <div>
                 <label for="title">Title</label>
-                <input type="text" name="title" class="form-control" placeholder="Title" ng-model="event.title"/>
+                <input type="text" name="title" class="input-block-level" placeholder="Title" ng-model="event.title"/>
             </div>
-            <div class="form-group">
+            <div>
                 <label for="priority">Priority</label>
-                <select class="form-control" name="priority" ng-model="event.priority" ng-options="p.value for p in priorities"></select>
+                <select class="input-block-level" name="priority" ng-model="event.priority" ng-options="p.value for p in priorities"></select>
             </div>
-            <div class="form-group">
+            <div>
                 <label for="description">Description</label>
-                <textarea name="description" class="form-control" placeholder="Description" ng-model="description"></textarea>
+                <textarea name="description" class="input-block-level" placeholder="Description" ng-model="event.description"></textarea>
             </div>
-            <div class="form-group">
+            <div>
                 <label for="startDate">Start Date</label>
+                 <div class="dropdown datetime-picker">
+                    <a class="dropdown-toggle" id="startDateDropDown" role="button" data-toggle="dropdown" data-target="#" href="#">
+                        <div class="input-append">
+                            <input type="text" class="input-large" data-ng-model="event.startDate"/><span class="add-on"><i class="icon-calendar"></i></span>
+                        </div>
+                    </a>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                        <datetimepicker data-ng-model="event.startDate" data-datetimepicker-config="{ dropdownSelector: '#startDateDropDown' }" />
+                    </ul>
+                </div>
             </div>
-            <div >
-                <label for="endDate">End Date</label>
-               <!-- <datetimepicker name="endDate" ng-model="event.endDate" ></datetimepicker>-->
+            <div>
+                 <label for="endDate">End Date</label>
+                 <div class="dropdown datetime-picker">
+                    <a class="dropdown-toggle" id="endDateDropDown" role="button" data-toggle="dropdown" data-target="#" href="#">
+                        <div class="input-append">
+                            <input type="text" class="input-large" data-ng-model="event.endDate"><span class="add-on"/><i class="icon-calendar"></i></span>
+                        </div>
+                    </a>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                        <datetimepicker data-ng-model="event.endDate" data-datetimepicker-config="{ dropdownSelector: '#endDateDropDown' }" />
+                    </ul>
+                </div>
             </div>
-            <button class="btn btn-default btn-lg btn-block">Save</button>
-            <button class="btn btn-default btn-lg btn-block" ng-click="closeLightBox()">Close</button>
-        </div>
+            <div class="btn-group btn-block">
+                <button class="btn btn-success btn-large w50" ng-click="saveEvent()">Save</button>
+                <button class="btn btn-danger btn-large w50" ng-click="deleteEvent()">Delete</button>
+            </div>
+                <button class="btn btn-primary btn-large btn-block" ng-click="closeLightBox()">Close</button>
+        </fieldset>
     </form>
 
     <div screensaver class="screensaver-disabled"></div>

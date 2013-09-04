@@ -73,9 +73,9 @@
                 visibleImg = images.find('.current-image'),
                 hiddenImg = images.find(':not(.current-image)');
 
-            if (!image || (image.src.indexOf("Content/dummyImg.JPG") != -1)) {
+            if (!image || (image.src.indexOf("dummyImg.JPG") != -1)) {
                 image = new Image();
-                image.src = "Content/dummyImg.JPG"
+                image.src = "css/img/dummyImg.JPG"
                 visibleImg.attr('src', image.src);
                 return;
             }

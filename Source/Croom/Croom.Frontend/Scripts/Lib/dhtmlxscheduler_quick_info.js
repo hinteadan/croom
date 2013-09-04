@@ -2,7 +2,7 @@
 This software is allowed to use under GPL or you need to obtain Commercial or Enterise License
 to use it in non-GPL project. Please contact sales@dhtmlx.com for details
 */
-scheduler.config.icons_select = ["icon_details", "icon_delete"];
+scheduler.config.icons_select = ["icon_details"];
 scheduler.config.details_on_create = true;
 scheduler.xy.menu_width = 0;
 
@@ -116,7 +116,7 @@ scheduler._init_quick_info = function(){
 		html += "<div class=\"dhx_cal_qi_controls\" style=\"height:"+sizes.quick_info_buttons+"px\">";
 		var buttons = scheduler.config.icons_select;
 		for (var i = 0; i < buttons.length; i++)
-			html += "<div class=\"dhx_qi_big_icon "+buttons[i]+"\" title=\""+scheduler.locale.labels[buttons[i]]+"\"><div class='dhx_menu_icon " + buttons[i] + "'></div><div>"+scheduler.locale.labels[buttons[i]]+"</div></div>";
+			html += "<div class=\"dhx_qi_big_icon "+buttons[i]+"\" title=\""+scheduler.locale.labels[buttons[i]]+"\" style='height:19px; width:92%;'><div class='dhx_menu_icon " + buttons[i] + "'></div><div>"+scheduler.locale.labels[buttons[i]]+"</div></div>";
 		html += "</div>";
 
 		qi.innerHTML = html;

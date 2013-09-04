@@ -2,7 +2,7 @@
     "use strict";
 
     angular.module('Croom')
-    .controller('home', function ($scope, $element) {
+    .controller('home',['$scope', '$element', 'ReservationService', 'UserService', 'AuthService', function ($scope, $element, reservationApi, userApi, auth) {
 
         scheduler.config.details_on_create = true;
         scheduler.config.details_on_dblclick = true;
@@ -10,20 +10,42 @@
         scheduler.config.xml_date = "%Y-%m-%d %H:%i";
       
         scheduler.init('scheduler_here', new Date(), "week");
-        scheduler.parse([
-          { creator: "vladimir.latis", title: "first title", priority:"Normal", description: "asdasdasdsad\nasdsadsadad\n", start_date: "2013-08-30 09:00", end_date: "2013-08-30 12:00" },
-           { creator: "vladimir.latis", title: "second title", priority:"High", description: "asdasdasadsadsadsdsad\nasdsadsdsadadsadad\n", start_date: "2013-08-30 13:00", end_date: "2013-08-30 12:00" }
-        ], "json");
+
+        var reservations = reservationApi.All(function () {
+            _.each(reservations, function (item) {
+                item.Value.ServerId = item.Key;
+                item.Value.start_date = new Date(item.Value.StartsAt);
+                item.Value.end_date = new Date(item.Value.EndsAt);
+                item.Value.title = item.Value.Title;
+            });
+            var values = _.map(reservations, function (item) {
+                return item.Value;
+            })
+            scheduler.parse(values, "json");
+        }),
+            currentUser = userApi.Current();
+
+        //scheduler.parse([
+        //  { creator: "vladimir.latis", title: "first title", priority:"Normal", description: "asdasdasdsad\nasdsadsadad\n", start_date: "2013-08-30 09:00", end_date: "2013-08-30 12:00" },
+        //   { creator: "vladimir.latis", title: "second title", priority:"High", description: "asdasdasadsadsadsdsad\nasdsadsdsadadsadad\n", start_date: "2013-08-30 13:00", end_date: "2013-08-30 12:00" }
+        //], "json");
 
         scheduler.showLightbox = function (id) {
+            //if (!currentUser.IsUserLoggedIn){
+            //    alert("auth");
+            //    scheduler.deleteEvent(id);
+            //    return;
+            //}
             var ev = scheduler.getEvent(id);
             scheduler.startLightbox(id, $element.find('.lightbox-form')[0]);
-            $scope.event.creator = ev.creator || "";
-            $scope.event.title = ev.title || "";
-            $scope.event.description = ev.description || "";
-            $scope.event.priority = ev.priority ? _.find($scope.priorities, { value: ev.priority }) : $scope.priorities[0];
-            $scope.event.startDate = ev.start_date || "";
-            $scope.event.endDate = ev.end_date || "";
+
+            $scope.currentReservation.creator = ev.RequestedBy && ev.RequestedBy.FullNames || "";
+            $scope.currentReservation.title = ev.title || "";
+            $scope.currentReservation.description = ev.description || "";
+            $scope.currentReservation.priority = ev.Priority != undefined ? _.find($scope.priorities, { value: ev.Priority }) : $scope.priorities[1];
+            $scope.currentReservation.startDate = ev.start_date || "";
+            $scope.currentReservation.endDate = ev.end_date || "";
+            
             if (!$scope.$$phase) {
                 $scope.$apply();
             }
@@ -32,12 +54,12 @@
 
         $scope.saveEvent = function () {
             var ev = scheduler.getEvent(scheduler.getState().lightbox_id);
-            ev.creator = $scope.event.creator;
-            ev.title = $scope.event.title;
-            ev.description = $scope.event.description;
-            ev.priority = $scope.event.priority;
-            ev.startDate = $scope.event.startDate;
-            ev.endDate = $scope.event.endDate;
+            ev.creator = $scope.currentReservation.creator;
+            ev.title = $scope.currentReservation.title;
+            ev.description = $scope.currentReservation.description;
+            ev.priority = $scope.currentReservation.priority;
+            ev.startDate = $scope.currentReservation.startDate;
+            ev.endDate = $scope.currentReservation.endDate;
 
             scheduler.endLightbox(true, $element.find('.lightbox-form')[0])
         }
@@ -53,19 +75,19 @@
         };
 
         $scope.priorities = [
-           { value: "Low" },
-           { value: "Normal" },
-           { value: "High" }
+           { name: "Low", value:0 },
+           { name: "Normal", value:1},
+           { name: "High", value:2 }
         ];
 
-        $scope.event = {
-            creator: '',
+        $scope.currentReservation = {
+            creator: currentUser,
             title: '',
             description: '',
             priority: $scope.priorities[0],
-            startDate: new Date(),//moment().format('dd/MM/yyyy hh:mm:ss'),
-            endDate: new Date()//moment().format('dd/MM/yyyy hh:mm:ss')
+            startDate: new Date(),
+            endDate: new Date()
         };
-    });
+    }]);
 
 }).call(this);

@@ -101,6 +101,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Commands\LoginCommand.cs" />
     <Compile Include="Commands\LoginResult.cs" />
+    <Compile Include="Commands\UserCheckResult.cs" />
     <Compile Include="Controllers\AuthController.cs" />
     <Compile Include="Controllers\ReservationController.cs" />
     <Compile Include="Controllers\StatusController.cs" />

@@ -5,12 +5,13 @@
     
     <script src="Scripts/Lib/jquery-1.9.1.js"></script>
     <script src="Scripts/Lib/angular.js"></script>
+    <script src="Scripts/Lib/angular-route.js"></script>
     <script src="Scripts/Lib/angular-resource.js"></script>
     <script src="Scripts/app.js"></script>
     <script src="Scripts/Directives/screensaver.js"></script>
     <link href="css/bootstrap/bootstrap.css" rel="stylesheet" />
     <script type="text/javascript">
-        var app = angular.module('Croom');
+        var app = angular.module('Croom', ['ngRoute','ngResource']);
         app
             .provider('AuthService', ['$httpProvider', function ($httpProvider) {
 

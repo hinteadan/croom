@@ -1,6 +1,6 @@
-﻿using Croom.Backend.Infrastructure;
+﻿using Croom.Backend.Commands;
+using Croom.Backend.Infrastructure;
 using Croom.Data;
-using Croom.Model;
 
 namespace Croom.Backend.Controllers
 {
@@ -8,9 +8,15 @@ namespace Croom.Backend.Controllers
     {
         public UserController(IStoreDataAsKeyValue store) : base(store) { }
 
-        public User Get()
+        public UserCheckResult Get()
         {
-            return CurrentUser;
+            return CurrentUser != null ?
+                new UserCheckResult
+                {
+                    IsUserLoggedIn = true,
+                    FullName = CurrentUser.FullName
+                }
+                : new UserCheckResult { IsUserLoggedIn = false };
         }
     }
 }

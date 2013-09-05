@@ -17,6 +17,7 @@
     <script src="Scripts/Lib/datetimepicker.js"></script>
     <script src="Scripts/Lib/dhtmlxscheduler.js"></script>
     <script src="Scripts/Lib/dhtmlxscheduler_quick_info.js"></script>
+    <script src="Scripts/Lib/dhtmlxscheduler_collision.js"></script>
 
     <script src="Scripts/app.js"></script>
     <script src="Scripts/Directives/screensaver.js"></script>
@@ -59,7 +60,7 @@
             </div>
             <div>
                 <label for="priority">Priority</label>
-                <select class="input-block-level" name="priority" ng-model="currentReservation.priority" ng-options="p.name for p in priorities"></select>
+                <select class="input-block-level" name="priority" ng-model="currentReservation.Priority" ng-options="p.name for p in priorities"></select>
             </div>
             <div>
                 <label for="description">Description</label>
@@ -74,7 +75,7 @@
                         </div>
                     </a>
                     <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-                        <datetimepicker data-ng-model="currentReservation.startDate" data-datetimepicker-config="{ dropdownSelector: '#startDateDropDown' }" />
+                        <datetimepicker data-ng-model="currentReservation.startDate" data-datetimepicker-config="{ dropdownSelector: '#startDateDropDown', minView: 'hour'}" />
                     </ul>
                 </div>
             </div>
@@ -83,11 +84,11 @@
                  <div class="dropdown datetime-picker">
                     <a class="dropdown-toggle" id="endDateDropDown" role="button" data-toggle="dropdown" data-target="#" href="#">
                         <div class="input-append">
-                            <input type="text" class="input-large" data-ng-model="currentReservation.endDate"><span class="add-on"/><i class="icon-calendar"></i></span>
+                            <input type="text" class="input-large" data-ng-model="currentReservation.endDate"/><span class="add-on"><i class="icon-calendar"></i></span>
                         </div>
                     </a>
                     <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-                        <datetimepicker data-ng-model="currentReservation.endDate" data-datetimepicker-config="{ dropdownSelector: '#endDateDropDown' }" />
+                        <datetimepicker data-ng-model="currentReservation.endDate" data-datetimepicker-config="{ dropdownSelector: '#endDateDropDown', minView: 'hour'}" />
                     </ul>
                 </div>
             </div>
@@ -95,10 +96,18 @@
                 <button class="btn btn-success btn-large w50" ng-click="saveEvent()">Save</button>
                 <button class="btn btn-danger btn-large w50" ng-click="deleteEvent()">Delete</button>
             </div>
-                <button class="btn btn-primary btn-large btn-block" ng-click="closeLightBox()">Close</button>
+            <button class="btn btn-primary btn-large btn-block" ng-click="closeLightBox()">Close</button>
         </fieldset>
     </form>
 
     <div screensaver class="screensaver-disabled"></div>
+    <div class="loadingAnimation" ng-show="isLoading">
+        <div class="bowl_ringG">
+            <div class="ball_holderG">
+                <div class="ballG">
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

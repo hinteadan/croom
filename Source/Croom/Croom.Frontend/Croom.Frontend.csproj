@@ -169,6 +169,7 @@
     <Content Include="Scripts\Lib\angular-touch.min.js" />
     <Content Include="Scripts\Lib\datetimepicker.js" />
     <Content Include="Scripts\Lib\dhtmlxscheduler.js" />
+    <Content Include="Scripts\Lib\dhtmlxscheduler_collision.js" />
     <Content Include="Scripts\Lib\dhtmlxscheduler_quick_info.js" />
     <Content Include="Scripts\Lib\jquery-ui-1.10.3.js" />
     <Content Include="Scripts\Lib\jquery-ui-1.10.3.min.js" />

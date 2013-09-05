@@ -6,9 +6,10 @@
 
         scheduler.config.details_on_create = true;
         scheduler.config.details_on_dblclick = true;
-        scheduler.config.collision_limit = 3;
+        scheduler.config.collision_limit = 1;
         scheduler.config.quick_info_detached = true;
         scheduler.config.multi_day = false;
+        scheduler.config.drag_create = false;
         scheduler.config.xml_date = "%Y-%m-%d %H:%i";
       
         scheduler.init('scheduler_here', new Date(), "week");
@@ -28,6 +29,12 @@
         }),
             currentUser = userApi.Current();
 
+        scheduler.templates.event_class = function (start, end, event) {
+            if (event.Priority) {
+                return "priority-" + event.Priority.name;
+            }
+        };
+
         scheduler.attachEvent("onBeforeEventChanged", validateEventState);
 
         function validateEventState(ev, e, flag, ev_old) {
@@ -39,22 +46,23 @@
                     ||(item.end_date > ev.start_date && item.end_date < ev.end_date));
             });
 
-            if (overlappingEvents.length > 2) {
-                alert("Only 3 or fewer events can be scheduled simultaneous.");
+            if (overlappingEvents.length) {
+                alertify.error("Only 1 event can be scheduled at a given time range.");
                 scheduler.setEvent(ev.id, ev_old);
                 return false;
             }
 
             if (!scheduler.isOneDayEvent(ev)) {
-                alert("Multi days schedule is not allowed.");
+                alertify.error("Multi days schedule is not allowed.");
                 scheduler.setEvent(ev.id, ev_old);
                 return false;
             }
             if (ev.start_date > ev.end_date) {
-                alert("End date must be greater than start date");
+                alertify.error("End date must be greater than start date");
                 scheduler.setEvent(ev.id, ev_old);
                 return false;
             }
+         
             return true;
         };
 
@@ -88,20 +96,25 @@
 
         $scope.saveEvent = function () {
 
-            var ev = scheduler.getEvent(scheduler.getState().lightbox_id),
+            var event = scheduler.getEvent(scheduler.getState().lightbox_id),
                 eventClone = {};
-            $.extend(true, eventClone, ev);
+            $.extend(true, eventClone, event);
 
-            ev.creator = $scope.currentReservation.creator;
-            ev.title = $scope.currentReservation.title;
-            ev.description = $scope.currentReservation.description;
-            ev.Priority = $scope.currentReservation.Priority;
-            ev.startDate = $scope.currentReservation.startDate;
-            ev.endDate = $scope.currentReservation.endDate;
+            event.creator = $scope.currentReservation.creator;
+            event.title = $scope.currentReservation.title;
+            event.description = $scope.currentReservation.description;
+            event.Priority = $scope.currentReservation.Priority;
+            event.startDate = $scope.currentReservation.startDate;
+            event.endDate = $scope.currentReservation.endDate;
 
-            updateInternalSchedulerFields(ev);
+            updateInternalSchedulerFields(event);
 
-            if (validateEventState(ev, null, null, eventClone)) {
+            if (!(event.title && event.description)) {
+                alertify.error("Title and description fields are required.");
+                scheduler.setEvent(event.id, eventClone);
+                return false;
+            }
+            if (validateEventState(event, null, null, eventClone)) {
                 scheduler.endLightbox(true, $element.find('.lightbox-form')[0])
             }
         }

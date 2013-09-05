@@ -18,6 +18,7 @@
     <script src="Scripts/Lib/dhtmlxscheduler.js"></script>
     <script src="Scripts/Lib/dhtmlxscheduler_quick_info.js"></script>
     <script src="Scripts/Lib/dhtmlxscheduler_collision.js"></script>
+    <script src="Scripts/Lib/alertify.js"></script>
 
     <script src="Scripts/app.js"></script>
     <script src="Scripts/Directives/screensaver.js"></script>
@@ -25,6 +26,8 @@
 
     <link href="css/bootstrap/bootstrap.css" rel="stylesheet" />
     <link href="css/bootstrap/bootstrap-responsive.css" rel="stylesheet" />
+    <link href="css/bootstrap/alertify.core.css" rel="stylesheet" />
+    <link href="css/bootstrap/alertify.default.css" rel="stylesheet" />
     <link href="css/bootstrap/datetimepicker.css" rel="stylesheet" />
     <link href="css/dhtmlx/dhtmlxscheduler.css" rel="stylesheet" />
     <link href="css/style.css" rel="stylesheet" />
@@ -52,7 +55,6 @@
              <legend>Event Details</legend>
             <div>
                 <p>Creator: {{currentReservation.creator}}</p>
-                
             </div>
             <div>
                 <label for="title">Title</label>
@@ -93,7 +95,7 @@
                 </div>
             </div>
             <div class="btn-group btn-block">
-                <button class="btn btn-success btn-large w50" ng-click="saveEvent()">Save</button>
+                <button type="submit" class="btn btn-success btn-large w50" ng-click="saveEvent()">Save</button>
                 <button class="btn btn-danger btn-large w50" ng-click="deleteEvent()">Delete</button>
             </div>
             <button class="btn btn-primary btn-large btn-block" ng-click="closeLightBox()">Close</button>

@@ -1,4 +1,8 @@
-﻿html, body{
+﻿*{
+     font-family: Futura, "Trebuchet MS", Arial, sans-serif!important;
+}
+
+html, body{
 	margin:0px;
 	padding:0px;
 	height:100%;
@@ -78,12 +82,20 @@ form > fieldset legend{
     color: whitesmoke;
 }
 
+/*events colors*/
+ .dhx_cal_event.priority-Low div, .dhx_cal_event_line.priority-Low {
+    background-color:#a9cb72;
+}
+ .dhx_cal_event.priority-High div, .dhx_cal_event_line.priority-High {
+    background-color:#f53602;
+}
+
 /*fixes between bootstrap and dhtmlx styles*/
-.dhx_cal_event, .dhx_cal_event > div,
-.dhx_qi_big_icon, .icon_details,
-.dhx_cal_event_clear
+div.dhx_event_move.dhx_title,
+div.dhx_cal_event_clear
 {
-    line-height:initial!important;
+    height:16px!important;
+    line-height:16px!important;
 }
 .datetime-picker{
     color:black;

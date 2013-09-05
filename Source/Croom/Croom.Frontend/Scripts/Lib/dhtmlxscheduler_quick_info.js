@@ -171,7 +171,7 @@ scheduler._fill_quick_data  = function(id){
 
 //title content
 	var titleContent = qi.firstChild.firstChild;
-	titleContent.innerHTML = ev.title.substr(0, 50);
+	titleContent.innerHTML = ev.title.substr(0, 25) + "...";
 	var titleDate = titleContent.nextSibling;
 	titleDate.innerHTML = scheduler.templates.quick_info_date(ev.start_date, ev.end_date, ev);
 

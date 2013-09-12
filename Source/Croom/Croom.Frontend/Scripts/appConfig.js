@@ -14,6 +14,7 @@
         $routeProvider
             .when('/', new RouteInfo('HomeController', 'Views/Calendar.html'))
             .when('/New', new RouteInfo('NewMeetingController', 'Views/NewMeeting.html'))
+            .when('/Authenticate/:returnTo', new RouteInfo('AuthController', 'Views/Login.html'))
             .otherwise({ redirectTo: '/' });
     }]);
 

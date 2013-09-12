@@ -172,6 +172,7 @@
     <Content Include="Scripts\appConfig.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\check.js" />
+    <Content Include="Scripts\Controllers\AuthController.js" />
     <Content Include="Scripts\Controllers\home.js" />
     <Content Include="Scripts\Controllers\HomeController.js" />
     <Content Include="Scripts\Controllers\NewMeetingController.js" />
@@ -506,6 +507,7 @@
     <Content Include="Scripts\services\UserService.js" />
     <Content Include="Views\Calendar.html" />
     <Content Include="Views\home.html" />
+    <Content Include="Views\Login.html" />
     <Content Include="Views\NewMeeting.html" />
     <Content Include="Views\Templates\screensaver.html" />
     <Content Include="Web.config">

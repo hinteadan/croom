@@ -17,19 +17,29 @@
 
                 var authToken = null;
 
+                function onLoginSuccess(result, onSuccess) {
+                    if (result.IsSuccessful) {
+                        authToken = result.AuthToken;
+                    }
+                    configureHeaders();
+                    if (onSuccess) {
+                        onSuccess.call(result);
+                    }
+                }
+
                 function AuthService($resource) {
                     var baseUrl = '/Croom.Backend/Auth',
-                        api = $resource(baseUrl);
+                        api = $resource(baseUrl, {}, { ntAuth: { method: 'PUT' } });
 
                     function login(username, password, onSuccess) {
                         var result = api.save(null, { username: username, password: password }, function () {
-                            if (result.IsSuccessful) {
-                                authToken = result.AuthToken;
-                            }
-                            configureHeaders();
-                            if (onSuccess) {
-                                onSuccess.call(null);
-                            }
+                            onLoginSuccess(result, onSuccess);
+                        });
+                    }
+
+                    function windowsLogin(onSuccess) {
+                        var result = api.ntAuth(null, {}, function () {
+                            onLoginSuccess(result, onSuccess);
                         });
                     }
 
@@ -45,6 +55,7 @@
 
                     return {
                         Login: login,
+                        WinLogin: windowsLogin,
                         Logout: logout
                     };
                 }
@@ -99,6 +110,11 @@
                     reservation.RequestedBy = userApi.Current();
                 });
             }
+            $scope.WinLogin = function () {
+                auth.WinLogin(function () {
+                    reservation.RequestedBy = userApi.Current();
+                });
+            }
             $scope.Logout = function () {
                 auth.Logout(function () {
                     reservation.RequestedBy = userApi.Current();
@@ -149,6 +165,7 @@
         <input placeholder="Username" ng-model="Username" />
         <input type="password" placeholder="Password" ng-model="Password" />
         <button ng-click="Login()">Login</button>
+        <button ng-click="WinLogin()">WinAuth Login</button>
         <button ng-click="Logout()">Logout</button>
 
         <ul>

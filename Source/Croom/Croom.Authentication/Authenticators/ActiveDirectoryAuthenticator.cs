@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.DirectoryServices;
 using System.DirectoryServices.AccountManagement;
+using System.Security.Principal;
 
 namespace Croom.Authentication.Authenticators
 {
@@ -46,6 +47,20 @@ namespace Croom.Authentication.Authenticators
                 }
                 return isValid;
             }
+        }
+
+        public bool Principal(IPrincipal user, out Guid? token)
+        {
+            Check.NotNull(user, "user");
+
+            token = null;
+            if (user.Identity == null || !user.Identity.IsAuthenticated)
+            {
+                return false;
+            }
+            token = Guid.NewGuid();
+            store.SaveOrUpdate(new KeyValuePair<Guid, object>(token.Value, user.Identity.ToUser()));
+            return true;
         }
 
         public bool Authenticate(Guid token, out User authenticatedUser)

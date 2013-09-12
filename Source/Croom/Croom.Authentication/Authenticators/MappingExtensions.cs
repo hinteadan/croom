@@ -3,6 +3,7 @@ using Recognos.Core;
 using System.Collections.Generic;
 using System.DirectoryServices;
 using System.Linq;
+using System.Security.Principal;
 
 namespace Croom.Authentication.Authenticators
 {
@@ -18,6 +19,16 @@ namespace Croom.Authentication.Authenticators
                 username,
                 (string)directoryEntry.Properties["cn"].Value,
                 ComposeEmailAddress(username, knownEmails)
+                );
+        }
+
+        public static User ToUser(this IIdentity identity, params KeyValuePair<string, string>[] knownEmails)
+        {
+            Check.NotNull(identity, "identity");
+            return new User(
+                identity.Name,
+                identity.Name,
+                ComposeEmailAddress(identity.Name, knownEmails)
                 );
         }
 

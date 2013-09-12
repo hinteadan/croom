@@ -44,6 +44,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="css\bootstrap-theme.css" />
+    <Content Include="css\bootstrap.css" />
     <Content Include="css\bootstrap\alertify.bootstrap.css" />
     <Content Include="css\bootstrap\alertify.core.css" />
     <Content Include="css\bootstrap\alertify.default.css" />
@@ -152,6 +154,7 @@
     <Content Include="css\bootstrap\bootstrap.min.css" />
     <Content Include="css\style.css" />
     <Content Include="css\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="h_sandbox.html" />
     <Content Include="css\img\dummyImg.JPG" />
     <Content Include="css\img\glyphicons-halflings-white.png" />
@@ -160,10 +163,14 @@
     <Content Include="css\fonts\glyphicons-halflings-regular.eot" />
     <Content Include="css\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="css\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <None Include="Scripts\Lib\jquery-1.9.1.intellisense.js" />
     <Content Include="index2.html" />
     <Content Include="Scripts\app.js" />
     <Content Include="Scripts\appConfig.js" />
+    <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\check.js" />
     <Content Include="Scripts\Controllers\home.js" />
     <Content Include="Scripts\Controllers\HomeController.js" />

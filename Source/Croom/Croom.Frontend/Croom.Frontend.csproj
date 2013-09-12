@@ -161,7 +161,10 @@
     <Content Include="css\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="css\fonts\glyphicons-halflings-regular.woff" />
     <None Include="Scripts\Lib\jquery-1.9.1.intellisense.js" />
+    <Content Include="index2.html" />
     <Content Include="Scripts\app.js" />
+    <Content Include="Scripts\appConfig.js" />
+    <Content Include="Scripts\check.js" />
     <Content Include="Scripts\Controllers\home.js" />
     <Content Include="Scripts\Directives\screensaver.js" />
     <Content Include="Scripts\Lib\alertify.js" />
@@ -488,6 +491,10 @@
     <Content Include="Scripts\Lib\lodash.min.js" />
     <Content Include="Scripts\Lib\moment.js" />
     <Content Include="Scripts\Lib\moment.min.js" />
+    <Content Include="Scripts\namespace.js" />
+    <Content Include="Scripts\services\AuthService.js" />
+    <Content Include="Scripts\services\ReservationService.js" />
+    <Content Include="Scripts\services\UserService.js" />
     <Content Include="Views\home.html" />
     <Content Include="Views\Templates\screensaver.html" />
     <Content Include="Web.config">

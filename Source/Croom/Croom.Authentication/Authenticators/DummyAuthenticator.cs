@@ -54,10 +54,7 @@ namespace Croom.Authentication.Authenticators
                 return false;
             }
             token = Guid.NewGuid();
-            store.SaveOrUpdate(new KeyValuePair<Guid, object>(
-                token.Value,
-                new User(user.Identity.Name, user.Identity.Name, "hintea_dan@yahoo.co.uk"))
-                );
+            store.SaveOrUpdate(new KeyValuePair<Guid, object>(token.Value, user.Identity.ToUser()));
             return true;
         }
 

@@ -25,9 +25,10 @@ namespace Croom.Authentication.Authenticators
         public static User ToUser(this IIdentity identity, params KeyValuePair<string, string>[] knownEmails)
         {
             Check.NotNull(identity, "identity");
+            string username = StripDomainName(identity.Name);
             return new User(
-                identity.Name,
-                identity.Name,
+                username,
+                username,
                 ComposeEmailAddress(identity.Name, knownEmails)
                 );
         }
@@ -40,6 +41,16 @@ namespace Croom.Authentication.Authenticators
                 return knownEmail.Value;
             }
             return string.Format("{0}@recognos.ro", username);
+        }
+
+        private static string StripDomainName(string fullUserName)
+        {
+            if (!fullUserName.Contains('\\'))
+            {
+                return fullUserName;
+            }
+
+            return fullUserName.Substring(fullUserName.LastIndexOf('\\') + 1);
         }
     }
 }

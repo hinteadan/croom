@@ -1,1 +1,31 @@
-﻿New Meeting
+﻿<h1>New Meeting</h1>
+
+<form class="form-horizontal" role="form">
+    <div class="form-group">
+        <label>Title</label>
+        <input type="text" class="form-control" placeholder="Meeting title" />
+    </div>
+    <div class="form-group">
+        <label>Priority</label>
+        <div class="btn-group btn-group-justified">
+          <a class="btn btn-default">Low</a>
+          <a class="btn btn-default active">Normal</a>
+          <a class="btn btn-default">High</a>
+        </div>
+    </div>
+    <div class="form-group">
+        <label>Description</label>
+        <textarea class="form-control" rows="3" style="resize: vertical;"></textarea>
+    </div>
+    <div class="form-group">
+        <label>From</label>
+        <input type="text" class="form-control" placeholder="From" />
+    </div>
+    <div class="form-group">
+        <label>To</label>
+        <input type="text" class="form-control" placeholder="To" />
+    </div>
+    <div class="form-group">
+        <button class="btn btn-block btn-primary" type="submit">Create</button>
+    </div>
+</form>

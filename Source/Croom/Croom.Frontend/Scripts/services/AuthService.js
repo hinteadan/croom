@@ -23,7 +23,7 @@
             }
             configureHeaders();
             if (onSuccess) {
-                onSuccess.call(result);
+                onSuccess.call(result, result);
             }
         }
 

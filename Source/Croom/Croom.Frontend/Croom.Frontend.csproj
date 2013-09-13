@@ -52,6 +52,8 @@
     <Content Include="css\bootstrap\bootstrap-responsive.css" />
     <Content Include="css\bootstrap\bootstrap-responsive.min.css" />
     <Content Include="css\bootstrap\datetimepicker.css" />
+    <Content Include="css\jquery.pnotify.default.css" />
+    <Content Include="css\jquery.pnotify.default.icons.css" />
     <Content Include="events.xml" />
     <Content Include="css\dhtmlx\dhtmlxscheduler.css" />
     <Content Include="css\dhtmlx\dhtmlxscheduler_classic.css" />
@@ -177,6 +179,7 @@
     <Content Include="Scripts\Controllers\HomeController.js" />
     <Content Include="Scripts\Controllers\NewMeetingController.js" />
     <Content Include="Scripts\Directives\screensaver.js" />
+    <Content Include="Scripts\jquery.pnotify.js" />
     <Content Include="Scripts\Lib\alertify.js" />
     <Content Include="Scripts\Lib\angular-animate.js" />
     <Content Include="Scripts\Lib\angular-animate.min.js" />
@@ -503,6 +506,7 @@
     <Content Include="Scripts\Lib\moment.min.js" />
     <Content Include="Scripts\namespace.js" />
     <Content Include="Scripts\services\AuthService.js" />
+    <Content Include="Scripts\services\NotifiyService.js" />
     <Content Include="Scripts\services\ReservationService.js" />
     <Content Include="Scripts\services\UserService.js" />
     <Content Include="Views\Calendar.html" />

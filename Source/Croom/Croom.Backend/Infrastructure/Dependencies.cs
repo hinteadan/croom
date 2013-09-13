@@ -19,8 +19,8 @@ namespace Croom.Backend.Infrastructure
             builder.RegisterApiControllers(Assembly.GetExecutingAssembly());
             builder.RegisterWebApiFilterProvider(GlobalConfiguration.Configuration);
 
-            builder.RegisterInstance<CachedJsonFileStore>(new CachedJsonFileStore()).AsImplementedInterfaces();
-            //builder.RegisterInstance<InMemoryStore>(new InMemoryStore()).AsImplementedInterfaces();
+            //builder.RegisterInstance<CachedJsonFileStore>(new CachedJsonFileStore()).AsImplementedInterfaces();
+            builder.RegisterInstance<InMemoryStore>(new InMemoryStore()).AsImplementedInterfaces();
 
             builder.RegisterType<DummyAuthenticator>().AsImplementedInterfaces();
             //builder.RegisterType<ActiveDirectoryAuthenticator>().AsImplementedInterfaces();

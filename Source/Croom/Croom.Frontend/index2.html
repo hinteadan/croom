@@ -8,10 +8,13 @@
     <link href="css/jquery.pnotify.default.icons.css" media="all" rel="stylesheet" />
     <link href="css/bootstrap.css" rel="stylesheet" />
     <link href="css/dhtmlx/dhtmlxscheduler.css" rel="stylesheet" />
+    <link href="css/style.css" rel="stylesheet" />
 
     <script src="Scripts/Lib/jquery-1.9.1.js"></script>
     <script src="Scripts/bootstrap.js"></script>
     <script src="Scripts/jquery.pnotify.js"></script>
+    <script src="Scripts/Lib/moment.js"></script>
+    <script src="Scripts/Lib/lodash.js"></script>
     <script src="Scripts/Lib/angular.js"></script>
     <script src="Scripts/Lib/angular-resource.js"></script>
 
@@ -30,8 +33,11 @@
     <script src="Scripts/Controllers/NewMeetingController.js"></script>
     <script src="Scripts/Controllers/AuthController.js"></script>
 
+    <script src="Scripts/Directives/screensaver.js"></script>
+
 </head>
 <body>
     <div class="container" ng-view></div>
+    <div screensaver class="screensaver-disabled"></div>
 </body>
 </html>

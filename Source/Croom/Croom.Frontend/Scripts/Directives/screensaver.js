@@ -1,6 +1,8 @@
 ﻿(function () {
     "use strict";
 
+    var screenSaverTimeout = 3000;
+
     var screensaver = function (http) {
 
         this.restrict = 'EA';
@@ -27,7 +29,7 @@
 
         function attachEvents() {
             $(document).on("mousemove keydown click", function () {
-                resetTimeout(60000);
+                resetTimeout(screenSaverTimeout);
                 hideScreensaver();
             }).click();
         }
@@ -64,7 +66,7 @@
         function displayScreensaver() {
             animatePhotos();
             showScreensaver();
-            resetTimeout(10000);
+            resetTimeout(screenSaverTimeout);
             fetchRandomImage();
         }
 
@@ -120,7 +122,7 @@
         }
     }
 
-    var app = angular.module('Croom');
+    var app = angular.module('Croom.Ui');
     app.directive('screensaver', ['$http', function ($http) {
         return new screensaver($http);
     }])

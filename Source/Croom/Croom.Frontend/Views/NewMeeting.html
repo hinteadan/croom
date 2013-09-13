@@ -1,0 +1,31 @@
+﻿<h1>New Meeting</h1>
+
+<form class="form-horizontal" role="form" ng-submit="Create()">
+    <div class="form-group">
+        <label>Title</label>
+        <input ng-model="Reservation.Title" type="text" class="form-control" placeholder="Meeting title" />
+    </div>
+    <div class="form-group">
+        <label>Priority</label>
+        <div class="btn-group btn-group-justified">
+          <a ng-class="{active: Reservation.Priority == 0}" ng-click="Reservation.Priority = 0" class="btn btn-default">Low</a>
+          <a ng-class="{active: Reservation.Priority == 1}" ng-click="Reservation.Priority = 1" class="btn btn-default">Normal</a>
+          <a ng-class="{active: Reservation.Priority == 2}" ng-click="Reservation.Priority = 2" class="btn btn-default">High</a>
+        </div>
+    </div>
+    <div class="form-group">
+        <label>Description</label>
+        <textarea ng-model="Reservation.Description" class="form-control" rows="3" style="resize: vertical;"></textarea>
+    </div>
+    <div class="form-group">
+        <label>From</label>
+        <input ng-model="Reservation.StartsAt" type="text" class="form-control" placeholder="From" />
+    </div>
+    <div class="form-group">
+        <label>To</label>
+        <input ng-model="Reservation.EndsAt" type="text" class="form-control" placeholder="To" />
+    </div>
+    <div class="form-group">
+        <button class="btn btn-block btn-primary" type="submit">Create</button>
+    </div>
+</form>

@@ -19,6 +19,17 @@ namespace Croom.Backend.Controllers
             Check.InjectedMembers(this);
         }
 
+        public LoginResult Put()
+        {
+            Guid? authToken = null;
+            if (!authenticator.Principal(User, out authToken))
+            {
+                return LoginResult.UnSuccessful();
+            }
+
+            return LoginResult.Successful(authToken.Value);
+        }
+
         public LoginResult Post(LoginCommand credentials)
         {
             Guid? authToken = null;

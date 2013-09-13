@@ -14,7 +14,7 @@ namespace Croom.Backend.Controllers
                 new UserCheckResult
                 {
                     IsUserLoggedIn = true,
-                    FullName = CurrentUser.FullName
+                    User = CurrentUser.PublicProjection()
                 }
                 : new UserCheckResult { IsUserLoggedIn = false };
         }

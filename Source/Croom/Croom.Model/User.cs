@@ -19,5 +19,15 @@ namespace Croom.Model
             this.FullName = fullName;
             this.Email = email;
         }
+
+        public object PublicProjection()
+        {
+            return new
+            {
+                this.Username,
+                this.FullName,
+                this.Email
+            };
+        }
     }
 }

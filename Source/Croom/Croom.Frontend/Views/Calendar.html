@@ -23,6 +23,7 @@
 
         scheduler.config.xml_date = "%Y-%m-%d %H:%i";
         scheduler.config.date_step = "5"
+        scheduler.config.readonly = true;
         scheduler.init('calendar');
         scheduler.load('http://localhost/Croom.Backend/Reservation', 'json');
 

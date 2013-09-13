@@ -9,7 +9,7 @@ using System.Net.Mail;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Croom.Tasks.Components
+namespace Croom.NotificationEngine
 {
     public class NotificationEmail
     {
@@ -62,7 +62,7 @@ namespace Croom.Tasks.Components
         private static string FormatBody(Reservation res)
         {
             string htmlTemplate = string.Empty;
-            using (StreamReader sReader = new StreamReader(@"D:\croom\Source\Croom\Croom.Tasks\Components\NotificationTemplate.html"))
+            using (StreamReader sReader = new StreamReader(@"D:\croom\Source\Croom\Croom.Misc\NotificationTemplate.html"))
             {
                 htmlTemplate = sReader.ReadToEnd();
                 htmlTemplate = htmlTemplate.Replace("[DayName]", GetDayName(res.StartsAt));

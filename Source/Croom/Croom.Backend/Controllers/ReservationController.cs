@@ -7,6 +7,7 @@ using Recognos.Core;
 using System;
 using System.Collections.Generic;
 using Croom.NotificationEngine;
+using Croom.Backend.Commands;
 
 namespace Croom.Backend.Controllers
 {
@@ -32,9 +33,10 @@ namespace Croom.Backend.Controllers
             return new { Id = id };
         }
 
-        public IEnumerable<KeyValuePair<Guid, Reservation>> Get()
+        public object[] Get()
         {
-            return reservationEngine.GetAll();
+            var result = ReservationProjectionForScheduler.FromReservationCollection(reservationEngine.GetAll());
+            return result;
         }
 
         public Reservation Get(Guid id)

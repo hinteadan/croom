@@ -33,6 +33,12 @@ namespace Croom.Backend.Infrastructure
                     .Where(h => h.Key == authTokenHeaderName)
                     .Select(h => Guid.Parse(h.Value.Single()))
                     .SingleOrDefault();
+
+                if (token == Guid.Empty)
+                {
+                    return null;
+                }
+
                 currentUser = store.Load(token) as User;
 
                 return currentUser;

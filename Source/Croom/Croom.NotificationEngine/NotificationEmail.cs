@@ -37,6 +37,8 @@ namespace Croom.NotificationEngine
 
             message.From = new MailAddress(ConfigurationManager.AppSettings["Croom.Email.From"]);
 
+            message.To.Add(new MailAddress(res.RequestedBy.Email));
+
             foreach (var participant in res.Participants)
             {
                 if (!string.IsNullOrWhiteSpace(participant.Email))
@@ -62,7 +64,8 @@ namespace Croom.NotificationEngine
         private static string FormatBody(Reservation res)
         {
             string htmlTemplate = string.Empty;
-            using (StreamReader sReader = new StreamReader(@"D:\croom\Source\Croom\Croom.Misc\NotificationTemplate.html"))
+            string path = string.Format("{0}NotificationTemplate.html", AppDomain.CurrentDomain.BaseDirectory);
+            using (StreamReader sReader = new StreamReader(path))
             {
                 htmlTemplate = sReader.ReadToEnd();
                 htmlTemplate = htmlTemplate.Replace("[DayName]", GetDayName(res.StartsAt));

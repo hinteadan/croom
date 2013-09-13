@@ -16,7 +16,7 @@ namespace Croom.Model
         public User RequestedBy { get; private set; }
         public string Title { get; private set; }
         public ReservationPriority Priority { get; private set; }
-        public string Description { get; private set; }
+        public string Description { get; set; }
         public DateTime StartsAt { get; private set; }
         public TimeSpan LastsFor { get; private set; }
         public DateTime EndsAt { get; private set; }
@@ -48,6 +48,8 @@ namespace Croom.Model
         }
 
         private Reservation() { }
+        //public Reservation(User requestedBy, string title, DateTime startsAt, DateTime endsAt)
+        //    : this(requestedBy, title, startsAt, endsAt, null) { }
         public Reservation(User requestedBy, string title, DateTime startsAt, DateTime endsAt)
         {
             Check.NotNull(requestedBy, "requestedBy");

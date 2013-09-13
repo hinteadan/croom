@@ -6,6 +6,7 @@ using Croom.Model;
 using Recognos.Core;
 using System;
 using System.Collections.Generic;
+using Croom.NotificationEngine;
 
 namespace Croom.Backend.Controllers
 {
@@ -26,7 +27,9 @@ namespace Croom.Backend.Controllers
         public object Post(Reservation reservation)
         {
             Check.NotNull(reservation, "reservation");
-            return new { Id = reservationEngine.AddReservation(reservation) };
+            var id = reservationEngine.AddReservation(reservation);
+            NotificationEmail.Send(reservation);
+            return new { Id = id };
         }
 
         public IEnumerable<KeyValuePair<Guid, Reservation>> Get()

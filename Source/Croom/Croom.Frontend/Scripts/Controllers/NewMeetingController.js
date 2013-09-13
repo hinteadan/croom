@@ -24,7 +24,7 @@
         function createReservation() {
             var userInfo = userApi.Current(function () {
                 reservation.RequestedBy = userInfo.User;
-                reservationApi.Add(null, reservation, function () { }, function (response) {
+                reservationApi.Add({}, reservation, function () { }, function (response) {
                     if (response.status === 401) {//Not Authorized
                         $location.path('/Authenticate/New');
                     }

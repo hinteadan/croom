@@ -148,6 +148,10 @@
       <Project>{f8b23a0c-8a74-4d1d-b950-0e32c1c466b9}</Project>
       <Name>Croom.Model</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Croom.NotificationEngine\Croom.NotificationEngine.csproj">
+      <Project>{b1ffdecb-78db-4ff9-b8ca-d537e162fb31}</Project>
+      <Name>Croom.NotificationEngine</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

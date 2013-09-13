@@ -1,115 +1,43 @@
 ﻿<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" ng-app="Croom">
+<html lang="en" ng-app="Croom.Ui">
 <head>
-    <title>Croom - mega awesome conference room scheduller</title>
+    <title>Croom</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="apple-mobile-web-app-capable" content="yes" /> 
-
-    <script src="Scripts/Lib/jquery-1.9.1.js"></script>
-    <script src="Scripts/Lib/jquery-ui-1.10.3.js"></script>
-    <script src="Scripts/Lib/angular.js"></script>
-    <script src="Scripts/Lib/angular-resource.js"></script>
-    <script src="Scripts/Lib/angular-route.js"></script>
-    <script src="Scripts/Lib/bootstrap.js"></script>
-    <script src="Scripts/Lib/lodash.js"></script>
-    <script src="Scripts/Lib/moment.js"></script>
-    <script src="Scripts/Lib/datetimepicker.js"></script>
-    <script src="Scripts/Lib/dhtmlxscheduler.js"></script>
-    <script src="Scripts/Lib/dhtmlxscheduler_quick_info.js"></script>
-    <script src="Scripts/Lib/dhtmlxscheduler_collision.js"></script>
-    <script src="Scripts/Lib/alertify.js"></script>
-
-    <script src="Scripts/app.js"></script>
-    <script src="Scripts/Directives/screensaver.js"></script>
-    <script src="Scripts/Controllers/home.js"></script>
-
-    <link href="css/bootstrap/bootstrap.css" rel="stylesheet" />
-    <link href="css/bootstrap/bootstrap-responsive.css" rel="stylesheet" />
-    <link href="css/bootstrap/alertify.core.css" rel="stylesheet" />
-    <link href="css/bootstrap/alertify.default.css" rel="stylesheet" />
-    <link href="css/bootstrap/datetimepicker.css" rel="stylesheet" />
+    <link href="css/jquery.pnotify.default.css" media="all" rel="stylesheet" />
+    <link href="css/jquery.pnotify.default.icons.css" media="all" rel="stylesheet" />
+    <link href="css/bootstrap.css" rel="stylesheet" />
     <link href="css/dhtmlx/dhtmlxscheduler.css" rel="stylesheet" />
     <link href="css/style.css" rel="stylesheet" />
+
+    <script src="Scripts/Lib/jquery-1.9.1.js"></script>
+    <script src="Scripts/bootstrap.js"></script>
+    <script src="Scripts/jquery.pnotify.js"></script>
+    <script src="Scripts/Lib/moment.js"></script>
+    <script src="Scripts/Lib/lodash.js"></script>
+    <script src="Scripts/Lib/angular.js"></script>
+    <script src="Scripts/Lib/angular-resource.js"></script>
+
+    <script src="Scripts/Lib/dhtmlxscheduler.js"></script>
+
+    <script src="Scripts/namespace.js"></script>
+    <script src="Scripts/check.js"></script>
+    <script src="Scripts/app.js"></script>
+    <script src="Scripts/services/AuthService.js"></script>
+    <script src="Scripts/services/UserService.js"></script>
+    <script src="Scripts/services/ReservationService.js"></script>
+    <script src="Scripts/services/NotifiyService.js"></script>
+    <script src="Scripts/appConfig.js"></script>
+
+    <script src="Scripts/Controllers/HomeController.js"></script>
+    <script src="Scripts/Controllers/NewMeetingController.js"></script>
+    <script src="Scripts/Controllers/AuthController.js"></script>
+
+    <script src="Scripts/Directives/screensaver.js"></script>
+
 </head>
-<body ng-controller="home">
-
-    <div id="scheduler_here" class="dhx_cal_container" style='width: 100%; height: 100%;'>
-        <div class="dhx_cal_navline">
-            <div class="dhx_cal_prev_button btn-primary">&nbsp;</div>
-            <div class="dhx_cal_next_button btn-primary">&nbsp;</div>
-            <div class="dhx_cal_today_button btn-primary"></div>
-            <div class="dhx_cal_date"></div>
-            <div class="dhx_cal_tab btn-primary" name="day_tab" style="right: 204px;"></div>
-            <div class="dhx_cal_tab btn-primary" name="week_tab" style="right: 140px;"></div>
-            <div class="dhx_cal_tab btn-primary" name="month_tab" style="right: 76px;"></div>
-        </div>
-        <div class="dhx_cal_header">
-        </div>
-        <div class="dhx_cal_data">
-        </div>
-    </div>
-
-    <form role="form" class="bootstrap-element lightbox-form">
-        <fieldset>
-             <legend>Event Details</legend>
-            <div>
-                <p>Creator: {{currentReservation.creator}}</p>
-            </div>
-            <div>
-                <label for="title">Title</label>
-                <input type="text" name="title" class="input-block-level" placeholder="Title" ng-model="currentReservation.title"/>
-            </div>
-            <div>
-                <label for="priority">Priority</label>
-                <select class="input-block-level" name="priority" ng-model="currentReservation.Priority" ng-options="p.name for p in priorities"></select>
-            </div>
-            <div>
-                <label for="description">Description</label>
-                <textarea name="description" class="input-block-level" placeholder="Description" ng-model="currentReservation.description"></textarea>
-            </div>
-            <div>
-                <label for="startDate">Start Date</label>
-                 <div class="dropdown datetime-picker">
-                    <a class="dropdown-toggle" id="startDateDropDown" role="button" data-toggle="dropdown" data-target="#" href="#">
-                        <div class="input-append">
-                            <input type="text" class="input-large" data-ng-model="currentReservation.startDate"/><span class="add-on"><i class="icon-calendar"></i></span>
-                        </div>
-                    </a>
-                    <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-                        <datetimepicker data-ng-model="currentReservation.startDate" data-datetimepicker-config="{ dropdownSelector: '#startDateDropDown', minView: 'hour'}" />
-                    </ul>
-                </div>
-            </div>
-            <div>
-                 <label for="endDate">End Date</label>
-                 <div class="dropdown datetime-picker">
-                    <a class="dropdown-toggle" id="endDateDropDown" role="button" data-toggle="dropdown" data-target="#" href="#">
-                        <div class="input-append">
-                            <input type="text" class="input-large" data-ng-model="currentReservation.endDate"/><span class="add-on"><i class="icon-calendar"></i></span>
-                        </div>
-                    </a>
-                    <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-                        <datetimepicker data-ng-model="currentReservation.endDate" data-datetimepicker-config="{ dropdownSelector: '#endDateDropDown', minView: 'hour'}" />
-                    </ul>
-                </div>
-            </div>
-            <div class="btn-group btn-block">
-                <button type="submit" class="btn btn-success btn-large w50" ng-click="saveEvent()">Save</button>
-                <button class="btn btn-danger btn-large w50" ng-click="deleteEvent()">Delete</button>
-            </div>
-            <button class="btn btn-primary btn-large btn-block" ng-click="closeLightBox()">Close</button>
-        </fieldset>
-    </form>
-
+<body>
+    <div class="container" ng-view></div>
     <div screensaver class="screensaver-disabled"></div>
-    <div class="loadingAnimation" ng-show="isLoading">
-        <div class="bowl_ringG">
-            <div class="ball_holderG">
-                <div class="ballG">
-                </div>
-            </div>
-        </div>
-    </div>
 </body>
 </html>

@@ -1,7 +1,7 @@
 ﻿(function () {
     "use strict";
 
-    var screenSaverTimeout = 3000;
+    var screenSaverTimeout = 15000;
 
     var screensaver = function (http) {
 

@@ -161,7 +161,7 @@
     <Content Include="css\img\dummyImg.JPG" />
     <Content Include="css\img\glyphicons-halflings-white.png" />
     <Content Include="css\img\glyphicons-halflings.png" />
-    <Content Include="index.html" />
+    <Content Include="index_.html" />
     <Content Include="css\fonts\glyphicons-halflings-regular.eot" />
     <Content Include="css\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="css\fonts\glyphicons-halflings-regular.woff" />
@@ -169,7 +169,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <None Include="Scripts\Lib\jquery-1.9.1.intellisense.js" />
-    <Content Include="index2.html" />
+    <Content Include="index.html" />
     <Content Include="Scripts\app.js" />
     <Content Include="Scripts\appConfig.js" />
     <Content Include="Scripts\bootstrap.js" />

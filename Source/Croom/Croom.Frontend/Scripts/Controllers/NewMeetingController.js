@@ -12,8 +12,8 @@
         this.Title = '';
         this.Priority = priority.Normal;
         this.Description = '';
-        this.StartsAt = '';
-        this.EndsAt = '';
+        this.StartsAt = '2013-09-13 00:00:00';
+        this.EndsAt = '2013-09-13 00:00:05';
     }
 
     function NewMeetingController($scope, $location,reservationApi, userApi) {
@@ -24,7 +24,9 @@
         function createReservation() {
             var userInfo = userApi.Current(function () {
                 reservation.RequestedBy = userInfo.User;
-                reservationApi.Add({}, reservation, function () { }, function (response) {
+                reservationApi.Add(reservation, function () {
+                    $location.path('/');
+                }, function (response) {
                     if (response.status === 401) {//Not Authorized
                         $location.path('/Authenticate/New');
                     }

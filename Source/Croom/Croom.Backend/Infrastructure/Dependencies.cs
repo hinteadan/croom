@@ -22,8 +22,8 @@ namespace Croom.Backend.Infrastructure
             //builder.RegisterInstance<CachedJsonFileStore>(new CachedJsonFileStore()).AsImplementedInterfaces();
             builder.RegisterInstance<InMemoryStore>(new InMemoryStore()).AsImplementedInterfaces();
 
-            builder.RegisterType<DummyAuthenticator>().AsImplementedInterfaces();
-            //builder.RegisterType<ActiveDirectoryAuthenticator>().AsImplementedInterfaces();
+            //builder.RegisterType<DummyAuthenticator>().AsImplementedInterfaces();
+            builder.RegisterType<ActiveDirectoryAuthenticator>().AsImplementedInterfaces();
 
             builder.RegisterType<AuthorizationFilter>()
                 .AsWebApiAuthorizationFilterFor<ReservationController>(c => c.Post(default(Reservation)))
